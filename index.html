@@ -273,6 +273,14 @@
             font-size: 3rem;
         }
 
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(124, 93, 250, 0.2));
+        }
+
         .music-toggle {
             position: absolute;
             top: 15px;
@@ -416,6 +424,14 @@
             }
 
             // === Render Functions ===
+            function createLogo() {
+                const logo = document.createElement('img');
+                logo.className = 'logo';
+                logo.src = './logo.png';
+                logo.alt = 'Logo';
+                return logo;
+            }
+
             function renderCategorySelection() {
                 container.innerHTML = '';
                 const musicBtn = document.createElement('button');
@@ -424,6 +440,8 @@
                 musicBtn.textContent = musicEnabled ? '🎵' : '🔇';
                 musicBtn.addEventListener('click', toggleMusic);
                 container.appendChild(musicBtn);
+
+                container.appendChild(createLogo());
 
                 const title = document.createElement('h2');
                 title.textContent = 'اختر فئة الأسئلة';
@@ -467,6 +485,8 @@
                 musicBtn.textContent = musicEnabled ? '🎵' : '🔇';
                 musicBtn.addEventListener('click', toggleMusic);
                 container.appendChild(musicBtn);
+
+                container.appendChild(createLogo());
 
                 // Category label
                 const catLabel = document.createElement('div');
@@ -611,6 +631,8 @@
                 musicBtn.textContent = musicEnabled ? '🎵' : '🔇';
                 musicBtn.addEventListener('click', toggleMusic);
                 container.appendChild(musicBtn);
+
+                container.appendChild(createLogo());
 
                 const msg = document.createElement('div');
                 msg.className = 'completion-msg';
