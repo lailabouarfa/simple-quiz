@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق الأسئلة التفاعلي</title>
+    <title>نجوم القواعد | تطبيق الأسئلة التفاعلي</title>
     <style>
         :root {
             --bg: #f9f5ff;
@@ -32,12 +32,11 @@
             justify-content: flex-start;
             padding: 20px;
             background-attachment: fixed;
-            padding-top: 30px;
         }
 
-        /* ========== الهيدر ========== */
+        /* ========== الشريط العلوي ========== */
         .app-header {
-            background: #ffffffdd;
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
             border-radius: 0 0 30px 30px;
             padding: 10px 25px;
@@ -49,8 +48,6 @@
             box-shadow: 0 8px 25px rgba(62, 42, 110, 0.12);
             width: 100%;
             max-width: 750px;
-            position: relative;
-            z-index: 20;
         }
 
         .app-logo {
@@ -76,6 +73,16 @@
             margin: 0;
         }
 
+        @media (max-width: 500px) {
+            .app-title {
+                font-size: 1.5rem;
+            }
+            .app-logo {
+                height: 40px;
+            }
+        }
+
+        /* ========== بطاقة المحتوى ========== */
         .container {
             width: 100%;
             max-width: 750px;
@@ -87,6 +94,7 @@
             position: relative;
             overflow: hidden;
             transition: background 0.4s;
+            margin-bottom: 20px;
         }
 
         .container.correct-bg {
@@ -150,12 +158,6 @@
             }
             .question-box {
                 font-size: 1.4rem;
-            }
-            .app-title {
-                font-size: 1.5rem;
-            }
-            .app-logo {
-                height: 40px;
             }
         }
 
@@ -342,16 +344,16 @@
     </style>
 </head>
 <body>
-    <!-- الشريط العلوي الثابت -->
+    <!-- ========== الشريط العلوي الثابت ========== -->
     <header class="app-header">
         <img src="logo.png" alt="شعار نجوم القواعد" class="app-logo">
         <h1 class="app-title">نجوم القواعد</h1>
     </header>
 
-    <!-- باقي المحتوى التفاعلي -->
+    <!-- ========== الحاوية الديناميكية للأسئلة ========== -->
     <div class="container" id="quizContainer">
         <button class="music-toggle" id="musicToggle" title="تشغيل/إيقاف الموسيقى">🎵</button>
-        <!-- المحتوى سيُحقن ديناميكيًا -->
+        <!-- المحتوى يتم حقنه هنا عبر JavaScript -->
     </div>
 
     <script>
@@ -366,7 +368,7 @@
 
             const container = document.getElementById('quizContainer');
 
-            // === Audio Logic ===
+            // === تهيئة الصوتيات ===
             function initAudioContext() {
                 if (!audioCtx) {
                     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -434,7 +436,10 @@
             }
 
             function stopBackgroundMusic() {
-                if (backgroundGainNode) { backgroundGainNode.disconnect(); backgroundGainNode = null; }
+                if (backgroundGainNode) {
+                    backgroundGainNode.disconnect();
+                    backgroundGainNode = null;
+                }
             }
 
             function toggleMusic() {
@@ -449,7 +454,7 @@
                 }
             }
 
-            // === Stars ===
+            // === تأثيرات النجوم ===
             function spawnStars(x, y, count = 12) {
                 const emojis = ['✨', '⭐', '🌟', '💫', '🎉'];
                 for (let i = 0; i < count; i++) {
@@ -468,12 +473,16 @@
             }
 
             function getClickPos(e) {
-                return { x: e.clientX || e.touches?.[0]?.clientX || window.innerWidth/2, y: e.clientY || e.touches?.[0]?.clientY || window.innerHeight/2 };
+                return {
+                    x: e.clientX || e.touches?.[0]?.clientX || window.innerWidth/2,
+                    y: e.clientY || e.touches?.[0]?.clientY || window.innerHeight/2
+                };
             }
 
-            // === Render Functions ===
+            // === عرض شاشة اختيار الفئة ===
             function renderCategorySelection() {
                 container.innerHTML = '';
+                // زر الموسيقى
                 const musicBtn = document.createElement('button');
                 musicBtn.className = 'music-toggle';
                 musicBtn.id = 'musicToggle';
@@ -516,7 +525,7 @@
                 }
                 container.innerHTML = '';
 
-                // Music toggle
+                // زر الموسيقى
                 const musicBtn = document.createElement('button');
                 musicBtn.className = 'music-toggle';
                 musicBtn.id = 'musicToggle';
@@ -524,20 +533,21 @@
                 musicBtn.addEventListener('click', toggleMusic);
                 container.appendChild(musicBtn);
 
-                // Category label
+                // بطاقة الفئة
                 const catLabel = document.createElement('div');
                 catLabel.className = 'category-label';
                 catLabel.textContent = currentCategory;
                 container.appendChild(catLabel);
 
-                // Progress
+                // التقدم
                 const progress = document.createElement('div');
                 progress.className = 'progress';
                 progress.textContent = `السؤال ${currentIndex + 1} من ${questions.length}`;
                 container.appendChild(progress);
 
-                // Hint button if hint exists
                 const q = questions[currentIndex];
+
+                // زر التلميح
                 if (q.hint && q.hint.trim() !== '') {
                     const hintBtn = document.createElement('button');
                     hintBtn.className = 'hint-btn';
@@ -562,13 +572,13 @@
                     container.appendChild(hintDiv);
                 }
 
-                // Question text
+                // نص السؤال
                 const qBox = document.createElement('div');
                 qBox.className = 'question-box';
                 qBox.textContent = q.question;
                 container.appendChild(qBox);
 
-                // Options
+                // خيارات الإجابة
                 const optionsDiv = document.createElement('div');
                 optionsDiv.className = 'options';
                 q.options.forEach((opt, idx) => {
@@ -580,13 +590,13 @@
                 });
                 container.appendChild(optionsDiv);
 
-                // Explanation box (hidden)
+                // صندوق التفسير
                 const explBox = document.createElement('div');
                 explBox.className = 'explanation-box';
                 explBox.id = 'explanationBox';
                 container.appendChild(explBox);
 
-                // Back button
+                // زر العودة
                 const backBtn = document.createElement('button');
                 backBtn.className = 'back-btn';
                 backBtn.textContent = '🔙 العودة للفئات';
@@ -616,7 +626,6 @@
 
                 initAudioContext();
 
-                // Visual feedback on button
                 btnElement.classList.add(isCorrect ? 'correct-flash' : 'wrong-flash');
                 container.classList.add(isCorrect ? 'correct-bg' : 'wrong-bg');
                 if (isCorrect) {
@@ -626,7 +635,7 @@
                     playWrongSound();
                 }
 
-                // Show explanation
+                // عرض التفسير
                 const explBox = document.getElementById('explanationBox');
                 if (explBox && selectedOption.explanation) {
                     explBox.textContent = selectedOption.explanation;
@@ -638,7 +647,6 @@
                 disableOptions(true);
 
                 if (isCorrect) {
-                    // Move to next question after delay
                     setTimeout(() => {
                         btnElement.classList.remove('correct-flash');
                         container.classList.remove('correct-bg');
@@ -648,7 +656,6 @@
                         renderQuestion();
                     }, 2000);
                 } else {
-                    // Allow retry
                     setTimeout(() => {
                         btnElement.classList.remove('wrong-flash');
                         container.classList.remove('wrong-bg');
@@ -698,7 +705,7 @@
                 container.appendChild(actions);
             }
 
-            // === JSON Loading ===
+            // === تحميل الأسئلة ===
             async function loadQuestions() {
                 try {
                     const res = await fetch('./questions.json');
@@ -727,7 +734,7 @@
 
             loadQuestions();
 
-            // Expose toggleMusic globally for dynamic buttons
+            // نجعل toggleMusic متاحة للاستدعاء من أزرار الموسيقى المُنشأة ديناميكياً
             window.toggleMusic = toggleMusic;
         })();
     </script>
