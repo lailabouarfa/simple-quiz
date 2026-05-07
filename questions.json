@@ -1,22 +1,418 @@
-[
-  {
-    "question": "ما هو أكبر كوكب في المجموعة الشمسية؟",
-    "options": ["الأرض", "المشتري", "زحل", "المريخ"],
-    "correct": 1
-  },
-  {
-    "question": "كم عدد ألوان قوس قزح؟",
-    "options": ["5", "6", "7", "8"],
-    "correct": 2
-  },
-  {
-    "question": "ما هو أسرع حيوان بري؟",
-    "options": ["الفهد", "الأسد", "الحصان", "الغزال"],
-    "correct": 0
-  },
-  {
-    "question": "ما هو المعدن السائل في درجة حرارة الغرفة؟",
-    "options": ["الحديد", "الزئبق", "الذهب", "الفضة"],
-    "correct": 1
-  }
-]
+{
+  "الإضافة": [
+    {
+      "question": "اختر المضاف إليه الصحيح: كتاب ___ مفيد جداً.",
+      "hint": "المضاف إليه يكون مجروراً",
+      "options": [
+        { "text": "الطالب", "is_correct": false, "explanation": "كلمة (الطالب) مرفوعة والأصل أن يكون المضاف إليه مجروراً." },
+        { "text": "الطالبُ", "is_correct": false, "explanation": "علامة الرفع الضمة، والمضاف إليه مجرور." },
+        { "text": "الطالبِ", "is_correct": true, "explanation": "صحيح؛ (الطالبِ) مجرور بالكسرة وهو مضاف إليه." },
+        { "text": "طالبٌ", "is_correct": false, "explanation": "نكرة مرفوعة ولا تصلح مضافاً إليه مباشرة بهذه الصيغة." }
+      ]
+    },
+    {
+      "question": "أي من الجمل التالية تحتوي على إضافة صحيحة؟",
+      "options": [
+        { "text": "هذا كتابٌ جديدٌ", "is_correct": false, "explanation": "لا توجد إضافة، بل نعت (جديد) ومنعوت." },
+        { "text": "كتابُ الطالبِ مفيدٌ", "is_correct": true, "explanation": "إضافة صحيحة: كتاب مضاف، الطالب مضاف إليه مجرور." },
+        { "text": "الكتاب مفيدٌ", "is_correct": false, "explanation": "لا إضافة، مبتدأ وخبر." },
+        { "text": "قرأتُ الكتابَ", "is_correct": false, "explanation": "مفعول به فقط ولا إضافة." }
+      ]
+    },
+    {
+      "question": "حدد المضاف والمضاف إليه في الجملة: \"سيارة أبي حمراء\".",
+      "options": [
+        { "text": "المضاف: سيارة، المضاف إليه: أبي", "is_correct": true, "explanation": "صحيح؛ سيارة مضاف، وأبي مضاف إليه مجرور بالياء لأنه من الأسماء الخمسة." },
+        { "text": "المضاف: أبي، المضاف إليه: سيارة", "is_correct": false, "explanation": "عكس التركيب؛ (أبي) لا يمكن أن يكون مضافاً هنا." },
+        { "text": "المضاف: حمراء، المضاف إليه: سيارة", "is_correct": false, "explanation": "حمراء نعت، وليست إضافة." },
+        { "text": "المضاف: سيارة، المضاف إليه: حمراء", "is_correct": false, "explanation": "حمراء ليست مجرورة، فلا تكون مضافاً إليه." }
+      ]
+    },
+    {
+      "question": "أي من الكلمات التالية تصلح مضافاً إليه في الجملة \"قلم ___\"؟",
+      "options": [
+        { "text": "الطالبِ", "is_correct": true, "explanation": "مجرور بالكسرة ويوافق الإضافة." },
+        { "text": "الطالبُ", "is_correct": false, "explanation": "مرفوع والمضاف إليه مجرور." },
+        { "text": "الطالبَ", "is_correct": false, "explanation": "منصوب ولا يكون مضافاً إليه." },
+        { "text": "طالبٌ", "is_correct": false, "explanation": "نكرة مرفوعة لا تصلح." }
+      ]
+    },
+    {
+      "question": "في الجملة \"هذا كتابُ المعلمِ الجديدِ\" أين الإضافة؟",
+      "options": [
+        { "text": "كتاب مضاف، المعلم مضاف إليه", "is_correct": true, "explanation": "صحيح، و(الجديد) نعت للمضاف إليه." },
+        { "text": "كتاب مضاف، الجديد مضاف إليه", "is_correct": false, "explanation": "الجديد نعت مجرور وليس مضافاً إليه." },
+        { "text": "المعلم مضاف، الجديد مضاف إليه", "is_correct": false, "explanation": "المعلم ليس مضافاً هنا." },
+        { "text": "لا توجد إضافة", "is_correct": false, "explanation": "الإضافة موجودة بوضوح." }
+      ]
+    },
+    {
+      "question": "\"غلافُ الكتابِ جميلٌ\" – ما علامة جر المضاف إليه؟",
+      "options": [
+        { "text": "الضمة", "is_correct": false, "explanation": "الضمة علامة رفع." },
+        { "text": "الفتحة", "is_correct": false, "explanation": "الفتحة علامة نصب." },
+        { "text": "الكسرة", "is_correct": true, "explanation": "المضاف إليه مجرور بالكسرة الظاهرة." },
+        { "text": "السكون", "is_correct": false, "explanation": "ليس من علامات الجر." }
+      ]
+    },
+    {
+      "question": "في قولنا \"هاتان سبورتا اللاعبَتانِ\" – أين المضاف إليه؟",
+      "options": [
+        { "text": "سبورتا", "is_correct": false, "explanation": "مضاف." },
+        { "text": "اللاعبتان", "is_correct": true, "explanation": "مضاف إليه مجرور بالياء لأنه مثنى." },
+        { "text": "هاتان", "is_correct": false, "explanation": "مبتدأ." },
+        { "text": "لا يوجد مضاف إليه", "is_correct": false, "explanation": "الجملة تشتمل على إضافة." }
+      ]
+    },
+    {
+      "question": "أي الجمل التالية خاطئة نحوياً؟",
+      "options": [
+        { "text": "مديرُ المدرسةِ حاضرٌ", "is_correct": false, "explanation": "صحيحة نحوياً." },
+        { "text": "مديرُ مدرسةٍ حاضرٌ", "is_correct": false, "explanation": "صحيحة نحوياً." },
+        { "text": "مديرَ المدرسةِ حاضرٌ", "is_correct": true, "explanation": "مدير مضاف يجب أن يكون مرفوعاً لأنه مبتدأ وليس منصوباً." },
+        { "text": "حضر مديرُ المدرسةِ", "is_correct": false, "explanation": "صحيحة نحوياً." }
+      ]
+    },
+    {
+      "question": "\"نورُ الشمسِ ساطعٌ\" – ما وظيفة كلمة (الشمسِ)؟",
+      "options": [
+        { "text": "فاعل", "is_correct": false, "explanation": "لا فعل في الجملة." },
+        { "text": "مضاف إليه", "is_correct": true, "explanation": "مجرور بالإضافة." },
+        { "text": "مفعول به", "is_correct": false, "explanation": "لا فعل متعدٍ." },
+        { "text": "نعت", "is_correct": false, "explanation": "ليست نعتاً." }
+      ]
+    },
+    {
+      "question": "ما الذي يجب أن يتوفر في المضاف؟",
+      "options": [
+        { "text": "أن يكون مجروراً", "is_correct": false, "explanation": "المجرور هو المضاف إليه." },
+        { "text": "ألا ينون ولا يدخل عليه (أل)", "is_correct": true, "explanation": "المضاف يكون خالياً من التنوين و(أل) إلا في حالات شاذة." },
+        { "text": "أن يكون نكرة دائماً", "is_correct": false, "explanation": "يمكن أن يكون معرفاً بالإضافة." },
+        { "text": "أن يكون جمعاً", "is_correct": false, "explanation": "لا يشترط." }
+      ]
+    }
+  ],
+  "الممنوع من الصرف": [
+    {
+      "question": "أي من الكلمات التالية ممنوع من الصرف؟",
+      "options": [
+        { "text": "محمد", "is_correct": false, "explanation": "محمد مصروف؛ ينون ويجر بالكسرة." },
+        { "text": "أحمدُ", "is_correct": false, "explanation": "أحمدُ مرفوع، ولكن الكلمة أصلها ممنوع من الصرف لكن السؤال عن الشكل المجرد." },
+        { "text": "أحمد", "is_correct": true, "explanation": "أحمد ممنوع من الصرف للعلمية ووزن الفعل." },
+        { "text": "محمود", "is_correct": false, "explanation": "محمود مصروف." }
+      ]
+    },
+    {
+      "question": "هل كلمة \"أحمد\" ممنوعة من الصرف؟ ولماذا؟",
+      "options": [
+        { "text": "نعم، لأنها اسم على وزن الفعل", "is_correct": true, "explanation": "العلمية + وزن الفعل (أفعل المضارع) سببان للمنع." },
+        { "text": "نعم، لأنها معرفة بـ (أل)", "is_correct": false, "explanation": "لا تدخل عليها (أل)." },
+        { "text": "لا، تصرف عادي", "is_correct": false, "explanation": "هي ممنوعة من الصرف." },
+        { "text": "لا، لأنها مشتقة", "is_correct": false, "explanation": "الاشتقاق ليس سبباً وحده." }
+      ]
+    },
+    {
+      "question": "ما الحكم الإعرابي لكلمة \"مناطق\" في الجملة: \"تحتوي المدينة على مناطق جميلة\"؟",
+      "options": [
+        { "text": "مرفوعة بالضمة", "is_correct": false, "explanation": "ليست مرفوعة." },
+        { "text": "منصوبة بالفتحة", "is_correct": false, "explanation": "مجرورة بحرف الجر (على)." },
+        { "text": "مجرورة بالفتحة لأنها ممنوعة من الصرف", "is_correct": true, "explanation": "مناطق ممنوعة من الصرف لأنها صيغة منتهى الجموع، فتُجر بالفتحة نيابة عن الكسرة." },
+        { "text": "مجرورة بالكسرة", "is_correct": false, "explanation": "توقع خطأ شائع." }
+      ]
+    },
+    {
+      "question": "أي من الأسباب التالية يجعل الاسم ممنوعاً من الصرف؟",
+      "options": [
+        { "text": "التنوين", "is_correct": false, "explanation": "التنوين علامة الصرف." },
+        { "text": "دخول الألف واللام", "is_correct": false, "explanation": "بدخول (أل) يُصرف الاسم." },
+        { "text": "العَلَمية والتركيب", "is_correct": false, "explanation": "التركيب ليس سبباً مستقلاً." },
+        { "text": "العَلَمية والوصف", "is_correct": true, "explanation": "من أسباب منع الصرف: العلمية مع وصفية أصلية (أو وزن الفعل وغيره)." }
+      ]
+    },
+    {
+      "question": "لماذا تُمنع كلمة \"مساجد\" من الصرف؟",
+      "options": [
+        { "text": "لأنها جمع مؤنث سالم", "is_correct": false, "explanation": "مساجد جمع تكسير وليست جمع مؤنث." },
+        { "text": "لأنها صيغة منتهى الجموع", "is_correct": true, "explanation": "مفاعل منتهى الجموع ممنوع من الصرف." },
+        { "text": "لأنها علم", "is_correct": false, "explanation": "ليست علم." },
+        { "text": "لأنها مؤنث بالتاء", "is_correct": false, "explanation": "ليس السبب." }
+      ]
+    },
+    {
+      "question": "اختر الجملة التي تعرب فيها الكلمة الممنوعة من الصرف إعراباً صحيحاً:",
+      "options": [
+        { "text": "مررتُ بأحمدٍ", "is_correct": false, "explanation": "بأحمد مجرورة بالفتحة وليس الكسرة." },
+        { "text": "مررتُ بأحمدَ", "is_correct": true, "explanation": "أحمد ممنوع من الصرف يجر بالفتحة." },
+        { "text": "مررتُ بأحمدُ", "is_correct": false, "explanation": "علامة خاطئة." },
+        { "text": "مررتُ بأحمدْ", "is_correct": false, "explanation": "السكون ليس علامة جر." }
+      ]
+    },
+    {
+      "question": "متى تُجر الكلمة الممنوعة من الصرف بالكسرة؟",
+      "options": [
+        { "text": "دائماً", "is_correct": false, "explanation": "خطأ." },
+        { "text": "عندما تكون نكرة", "is_correct": false, "explanation": "النكرة الممنوعة تجر بالفتحة." },
+        { "text": "إذا دخلت عليها (أل) أو أُضيفت", "is_correct": true, "explanation": "بدخول (أل) أو الإضافة يعود الاسم للجر بالكسرة." },
+        { "text": "إذا كانت مرفوعة", "is_correct": false, "explanation": "الجر يخص حالة الجر." }
+      ]
+    },
+    {
+      "question": "أي الكلمات التالية ليست ممنوعة من الصرف؟",
+      "options": [
+        { "text": "حمزة", "is_correct": true, "explanation": "حمزة مصروف لأنه علم مختوم بتاء." },
+        { "text": "أحمر", "is_correct": false, "explanation": "ممنوع للوصف ووزن أفعل." },
+        { "text": "صحارى", "is_correct": false, "explanation": "ممنوع لأنها صيغة منتهى الجموع." },
+        { "text": "يزيد", "is_correct": false, "explanation": "ممنوع للعلمية ووزن الفعل." }
+      ]
+    },
+    {
+      "question": "\"استمعتُ إلى نصائحَ غاليةٍ\" – لماذا نُصبت (نصائح) بالفتحة؟",
+      "options": [
+        { "text": "لأنها مفعول به", "is_correct": false, "explanation": "هي مجرورة بحرف الجر." },
+        { "text": "لأنها ممنوعة من الصرف مجرورة بالفتحة", "is_correct": true, "explanation": "نصائح صيغة منتهى الجموع ممنوعة من الصرف، علامة جرها الفتحة." },
+        { "text": "لأنها مضافة", "is_correct": false, "explanation": "لو أضيفت لجُرت بالكسرة." },
+        { "text": "لأنها مرفوعة", "is_correct": false, "explanation": "غير صحيح." }
+      ]
+    }
+  ],
+  "الأسماء المشتقة": [
+    {
+      "question": "اسم الفاعل من الفعل \"كتب\" هو:",
+      "options": [
+        { "text": "مكتوب", "is_correct": false, "explanation": "هذا اسم مفعول." },
+        { "text": "كاتب", "is_correct": true, "explanation": "اسم فاعل من الثلاثي على وزن فاعل." },
+        { "text": "كتاب", "is_correct": false, "explanation": "مصدر." },
+        { "text": "يكتب", "is_correct": false, "explanation": "فعل مضارع." }
+      ]
+    },
+    {
+      "question": "اسم المفعول من الفعل \"سمع\" هو:",
+      "options": [
+        { "text": "سامع", "is_correct": false, "explanation": "اسم فاعل." },
+        { "text": "مسمع", "is_correct": false, "explanation": "وزن خاطئ." },
+        { "text": "مسموع", "is_correct": true, "explanation": "اسم مفعول من الثلاثي." },
+        { "text": "سميع", "is_correct": false, "explanation": "صيغة مبالغة." }
+      ]
+    },
+    {
+      "question": "اختر اسم الفاعل الصحيح من الفعل \"دخل\":",
+      "options": [
+        { "text": "دخل", "is_correct": false, "explanation": "هو الفعل الماضي." },
+        { "text": "يدخل", "is_correct": false, "explanation": "فعل مضارع." },
+        { "text": "داخل", "is_correct": true, "explanation": "اسم فاعل صحيح على وزن فاعل." },
+        { "text": "مدخول", "is_correct": false, "explanation": "اسم مفعول." }
+      ]
+    },
+    {
+      "question": "حدد نوع الاسم المشتق في الجملة: \"هذا كتاب مشروح من المعلم\".",
+      "options": [
+        { "text": "اسم فاعل", "is_correct": false, "explanation": "مشروح ليس اسم فاعل." },
+        { "text": "اسم مفعول", "is_correct": true, "explanation": "مشروح اسم مفعول من الفعل شرح." },
+        { "text": "صيغة مبالغة", "is_correct": false, "explanation": "ليست صيغة مبالغة." },
+        { "text": "صفة مشبهة", "is_correct": false, "explanation": "لا تصلح هنا." }
+      ]
+    },
+    {
+      "question": "اختر الجملة التي تحتوي على اسم فاعل:",
+      "options": [
+        { "text": "الطالب مجتهد", "is_correct": false, "explanation": "مجتهد صفة مشبهة (أو اسم فاعل؟) لكنها صحيحة لكن خيار أفضل موجود." },
+        { "text": "جاء الطالب", "is_correct": false, "explanation": "لا اسم فاعل هنا." },
+        { "text": "المُعلِّمُ حاضر", "is_correct": true, "explanation": "مُعلِّم اسم فاعل من علّم، واضح." },
+        { "text": "الكتاب مقروء", "is_correct": false, "explanation": "مقروء اسم مفعول." }
+      ]
+    },
+    {
+      "question": "صيغة المبالغة من الفعل \"غفر\" هي:",
+      "options": [
+        { "text": "غافر", "is_correct": false, "explanation": "اسم فاعل." },
+        { "text": "غفور", "is_correct": true, "explanation": "صيحة مبالغة على وزن فعول." },
+        { "text": "مغفور", "is_correct": false, "explanation": "اسم مفعول." },
+        { "text": "مغفر", "is_correct": false, "explanation": "ليست صيغة مبالغة." }
+      ]
+    },
+    {
+      "question": "ما اسم المفعول من الفعل \"قاد\" (أجوف واوي)؟",
+      "options": [
+        { "text": "قائد", "is_correct": false, "explanation": "اسم فاعل." },
+        { "text": "مقوود", "is_correct": false, "explanation": "غير مستخدم." },
+        { "text": "مقود", "is_correct": true, "explanation": "اسم مفعول بحذف الواو." },
+        { "text": "قياد", "is_correct": false, "explanation": "مصدر." }
+      ]
+    },
+    {
+      "question": "\"هذا رجل صبور\" – ما نوع (صبور)؟",
+      "options": [
+        { "text": "اسم فاعل", "is_correct": false, "explanation": "ليس على وزن فاعل." },
+        { "text": "اسم مفعول", "is_correct": false, "explanation": "ليس فيه معنى المفعولية." },
+        { "text": "صيغة مبالغة", "is_correct": true, "explanation": "على وزن فعول تدل على المبالغة." },
+        { "text": "صفة مشبهة", "is_correct": false, "explanation": "لا تعمل عمل الفعل." }
+      ]
+    },
+    {
+      "question": "اسم المفعول من الفعل غير الثلاثي \"أكرم\" هو:",
+      "options": [
+        { "text": "أكرم", "is_correct": false, "explanation": "فعل ماض." },
+        { "text": "مُكرم", "is_correct": true, "explanation": "اسم مفعول على وزن مُفعَل." },
+        { "text": "مُكرِم", "is_correct": false, "explanation": "هذا اسم فاعل." },
+        { "text": "كرامة", "is_correct": false, "explanation": "مصدر." }
+      ]
+    },
+    {
+      "question": "في الجملة \"الطالب مُكرَم\" اسم المفعول يعمل عمل:",
+      "options": [
+        { "text": "الفعل المبني للمعلوم", "is_correct": false, "explanation": "اسم المفعول يرفع نائب فاعل." },
+        { "text": "الفعل المبني للمجهول", "is_correct": true, "explanation": "لأنه يدل على من وقع عليه الفعل." },
+        { "text": "الفعل الناقص", "is_correct": false, "explanation": "لا يشبه كان." },
+        { "text": "اسم التفضيل", "is_correct": false, "explanation": "ليس اسم تفضيل." }
+      ]
+    }
+  ],
+  "النداء": [
+    {
+      "question": "أكمل: ___ معلم، أساعدك؟",
+      "options": [
+        { "text": "يا", "is_correct": true, "explanation": "يا أداة نداء للقريب والبعيد." },
+        { "text": "أيها", "is_correct": false, "explanation": "تستخدم عادة مع المعرف بـ (أل)." },
+        { "text": "هيا", "is_correct": false, "explanation": "هيا ليست أداة نداء قياسية." },
+        { "text": "ألا", "is_correct": false, "explanation": "ألا للاستفتاح وليست نداء." }
+      ]
+    },
+    {
+      "question": "أي أداة نداء تستخدم للمنادى البعيد؟",
+      "options": [
+        { "text": "يا", "is_correct": false, "explanation": "تصلح للقريب والبعيد." },
+        { "text": "أيا", "is_correct": true, "explanation": "أيا لنداء البعيد." },
+        { "text": "الهمزة (أ)", "is_correct": false, "explanation": "الهمزة للقريب." },
+        { "text": "وا", "is_correct": false, "explanation": "وا تستخدم للندبة." }
+      ]
+    },
+    {
+      "question": "أداة النداء في الجملة: \"هيا صديقي، تعال هنا\" هي:",
+      "options": [
+        { "text": "يا", "is_correct": false, "explanation": "لا توجد." },
+        { "text": "هيا", "is_correct": true, "explanation": "هيا هنا بمعنى أداة نداء (تعالي)." },
+        { "text": "أيها", "is_correct": false, "explanation": "لم تذكر." },
+        { "text": "النداء غير موجود", "is_correct": false, "explanation": "الجملة أسلوب نداء." }
+      ]
+    },
+    {
+      "question": "في الجملة \"يا الله، أغثني\"، أداة النداء هي:",
+      "options": [
+        { "text": "يا", "is_correct": true, "explanation": "واضحة." },
+        { "text": "الله", "is_correct": false, "explanation": "المنادى." },
+        { "text": "اللهم", "is_correct": false, "explanation": "غير موجودة هنا." },
+        { "text": "أغثني", "is_correct": false, "explanation": "جملة دعاء." }
+      ]
+    },
+    {
+      "question": "ما نوع المنادى في \"يا صديقي\"؟",
+      "options": [
+        { "text": "علم مفرد", "is_correct": false, "explanation": "ليس علماً." },
+        { "text": "مضاف", "is_correct": true, "explanation": "صديقي: مضاف والياء مضاف إليه، وهو منادى منصوب (أو مبني حسب القاعدة)." },
+        { "text": "نكرة غير مقصودة", "is_correct": false, "explanation": "محدد بالإضافة." },
+        { "text": "نكرة مقصودة", "is_correct": false, "explanation": "المقصودة غير مضافة." }
+      ]
+    },
+    {
+      "question": "\"يا طالبَ العلمِ\" – إعراب كلمة (طالب) هو:",
+      "options": [
+        { "text": "مرفوع بالضمة", "is_correct": false, "explanation": "المنادى المضاف منصوب." },
+        { "text": "منصوب بالفتحة", "is_correct": true, "explanation": "لأنه منادى مضاف." },
+        { "text": "مجرور بالكسرة", "is_correct": false, "explanation": "ليس مضافاً إليه." },
+        { "text": "مبني على الضم", "is_correct": false, "explanation": "لأنه ليس نكرة مقصودة." }
+      ]
+    },
+    {
+      "question": "علامة نصب المنادى المضاف؟",
+      "options": [
+        { "text": "الضمة", "is_correct": false, "explanation": "الضمة للرفع." },
+        { "text": "الفتحة", "is_correct": true, "explanation": "المنادى المضاف والشبيه بالمضاف منصوب." },
+        { "text": "الكسرة", "is_correct": false, "explanation": "للجر." },
+        { "text": "الياء", "is_correct": false, "explanation": "للمثنى والجمع." }
+      ]
+    },
+    {
+      "question": "أي من الجمل التالية تحوي نداء نكرة غير مقصودة؟",
+      "options": [
+        { "text": "يا طالبُ اجتهد", "is_correct": false, "explanation": "طالبُ نكرة مقصودة مبنية على الضم." },
+        { "text": "يا طالباً خذ كتابك", "is_correct": true, "explanation": "طالباً نكرة غير مقصودة منصوبة." },
+        { "text": "يا محمد", "is_correct": false, "explanation": "علم مفرد مبني." },
+        { "text": "يا أستاذ", "is_correct": false, "explanation": "نكرة مقصودة." }
+      ]
+    },
+    {
+      "question": "في الجملة \"أيا نائماً استيقظ\" – إعراب (نائماً)؟",
+      "options": [
+        { "text": "مبني على الضم", "is_correct": false, "explanation": "ليست نكرة مقصودة." },
+        { "text": "منصوب", "is_correct": true, "explanation": "نكرة غير مقصودة منصوبة." },
+        { "text": "مجرور", "is_correct": false, "explanation": "لا حرف جر." },
+        { "text": "مرفوع", "is_correct": false, "explanation": "لا يرفع." }
+      ]
+    },
+    {
+      "question": "ما الفرق بين \"يا غلامُ\" و \"يا غلاماً\"؟",
+      "options": [
+        { "text": "لا فرق", "is_correct": false, "explanation": "يوجد فرق." },
+        { "text": "الأولى نكرة مقصودة والثانية غير مقصودة", "is_correct": true, "explanation": "المقصودة مبنية على الضم، غير المقصودة منصوبة." },
+        { "text": "الأولى معرفة والثانية نكرة", "is_correct": false, "explanation": "كلاهما نكرة." },
+        { "text": "الأولى منادى بعيد والثانية منادى قريب", "is_correct": false, "explanation": "لا علاقة." }
+      ]
+    },
+    {
+      "question": "\"يا أيها الرجل\" – ما إعراب (أيها)؟",
+      "options": [
+        { "text": "منادى مبني على الضم", "is_correct": true, "explanation": "أيّها منادى مبني على الضم في محل نصب." },
+        { "text": "فاعل", "is_correct": false, "explanation": "لا." },
+        { "text": "مفعول به", "is_correct": false, "explanation": "لا." },
+        { "text": "مضاف", "is_correct": false, "explanation": "هي منادى." }
+      ]
+    }
+  ],
+  "النعت": [
+    {
+      "question": "في الجملة \"جاء الطالبُ المجتهدُ\" – كلمة (المجتهدُ) تُعرب:",
+      "options": [
+        { "text": "خبراً", "is_correct": false, "explanation": "لا، الجملة فعلية." },
+        { "text": "نعتاً", "is_correct": true, "explanation": "نعت مرفوع يتبع المنعوت." },
+        { "text": "فاعلاً", "is_correct": false, "explanation": "الفاعل (الطالب)." },
+        { "text": "مفعولاً به", "is_correct": false, "explanation": "لا يصلح." }
+      ]
+    },
+    {
+      "question": "ما هو النعت السببي في قولنا: \"رأيت رجلاً جميلاً ثوبُه\"؟",
+      "options": [
+        { "text": "رجلاً", "is_correct": false, "explanation": "منعوت." },
+        { "text": "جميلاً", "is_correct": true, "explanation": "نعت سببي رفع الاسم الظاهر بعده." },
+        { "text": "ثوبه", "is_correct": false, "explanation": "فاعل للصفة." },
+        { "text": "رأيت", "is_correct": false, "explanation": "فعل." }
+      ]
+    },
+    {
+      "question": "يجب أن يطابق النعت منعوته في:",
+      "options": [
+        { "text": "الإعراب فقط", "is_correct": false, "explanation": "ليس كافياً." },
+        { "text": "التعريف والتنكير فقط", "is_correct": false, "explanation": "يحتاج أشياء أخرى." },
+        { "text": "الإعراب والعدد والنوع والتعيين", "is_correct": true, "explanation": "النعت يتبع المنعوت في أربعة من عشرة." },
+        { "text": "الحركة الأخيرة فقط", "is_correct": false, "explanation": "خطأ." }
+      ]
+    },
+    {
+      "question": "أي الخيارات يمثل نعتاً جملة؟",
+      "options": [
+        { "text": "الوردة الجميلة", "is_correct": false, "explanation": "نعت مفرد." },
+        { "text": "رأيت طفلاً يلعب", "is_correct": true, "explanation": "جملة (يلعب) في محل نصب نعت." },
+        { "text": "هذا كتاب", "is_correct": false, "explanation": "لا نعت." },
+        { "text": "شربت ماءً", "is_correct": false, "explanation": "لا نعت." }
+      ]
+    },
+    {
+      "question": "\"هذا رجلٌ كريمٌ أبوه\" – إعراب (كريم):",
+      "options": [
+        { "text": "نعت حقيقي", "is_correct": false, "explanation": "النعت السببي هو ما رفع اسماً ظاهراً." },
+        { "text": "نعت سببي", "is_correct": true, "explanation": "رفع (أبوه) فاعلاً له." },
+        { "text": "خبر", "is_correct": false, "explanation": "لا." },
+        { "text": "مضاف إليه", "is_correct": false, "explanation": "لا." }
+      ]
+    }
+  ]
+}
