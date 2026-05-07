@@ -16,11 +16,7 @@
             --gold: #f2c94c;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -34,7 +30,7 @@
             background-attachment: fixed;
         }
 
-        /* ========== الشريط العلوي ========== */
+        /* الشريط العلوي */
         .app-header {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
@@ -49,40 +45,27 @@
             width: 100%;
             max-width: 750px;
         }
-
         .app-logo {
             height: 50px;
             width: auto;
             border-radius: 12px;
             transition: transform 0.3s;
         }
-
-        .app-logo:hover {
-            transform: rotate(-5deg) scale(1.1);
-        }
-
+        .app-logo:hover { transform: rotate(-5deg) scale(1.1); }
         .app-title {
             font-size: 2rem;
             font-weight: 800;
-            color: #3e2a6e;
-            letter-spacing: 1px;
             background: linear-gradient(135deg, #7c5dfa, #f2c94c);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin: 0;
         }
-
         @media (max-width: 500px) {
-            .app-title {
-                font-size: 1.5rem;
-            }
-            .app-logo {
-                height: 40px;
-            }
+            .app-title { font-size: 1.5rem; }
+            .app-logo { height: 40px; }
         }
 
-        /* ========== بطاقة المحتوى ========== */
+        /* الحاوية */
         .container {
             width: 100%;
             max-width: 750px;
@@ -96,18 +79,13 @@
             transition: background 0.4s;
             margin-bottom: 20px;
         }
-
-        .container.correct-bg {
-            background: #e6ffed;
-        }
-
+        .container.correct-bg { background: #e6ffed; }
         .container.wrong-bg {
             background: #fff0f0;
             animation: shake 0.3s ease-in-out;
         }
-
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
+            0%,100% { transform: translateX(0); }
             25% { transform: translateX(-6px); }
             50% { transform: translateX(6px); }
             75% { transform: translateX(-3px); }
@@ -120,7 +98,6 @@
             opacity: 0.8;
             font-weight: 500;
         }
-
         .category-label {
             display: inline-block;
             background: #e8e0ff;
@@ -131,7 +108,6 @@
             font-weight: 600;
             margin-bottom: 10px;
         }
-
         .question-box {
             background: #f3f0ff;
             border-radius: 25px;
@@ -151,14 +127,9 @@
             gap: 20px;
             margin-bottom: 15px;
         }
-
         @media (max-width: 500px) {
-            .options {
-                grid-template-columns: 1fr;
-            }
-            .question-box {
-                font-size: 1.4rem;
-            }
+            .options { grid-template-columns: 1fr; }
+            .question-box { font-size: 1.4rem; }
         }
 
         .option-btn {
@@ -170,43 +141,34 @@
             font-weight: 600;
             border-radius: 60px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.2s;
             box-shadow: 0 8px 0 #4e3aa5, 0 10px 20px rgba(0,0,0,0.1);
             transform: translateY(0);
-            letter-spacing: 0.5px;
             word-break: break-word;
             line-height: 1.4;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
         }
-
         .option-btn:hover:not(:disabled) {
             background: var(--btn-hover);
             transform: translateY(-2px);
             box-shadow: 0 10px 0 #4e3aa5, 0 12px 22px rgba(0,0,0,0.15);
         }
-
         .option-btn:active:not(:disabled) {
             transform: translateY(4px);
             box-shadow: 0 4px 0 #4e3aa5, 0 8px 15px rgba(0,0,0,0.1);
         }
-
         .option-btn.correct-flash {
             background: var(--correct) !important;
-            box-shadow: 0 0 30px rgba(76, 175, 147, 0.7);
+            box-shadow: 0 0 30px rgba(76,175,147,0.7);
             transform: scale(1.05);
-            transition: 0.15s;
         }
-
         .option-btn.wrong-flash {
             background: var(--wrong) !important;
-            box-shadow: 0 0 25px rgba(224, 122, 95, 0.7);
+            box-shadow: 0 0 25px rgba(224,122,95,0.7);
             transform: scale(0.97);
-            transition: 0.15s;
         }
-
         .option-btn:disabled {
             opacity: 0.7;
             cursor: not-allowed;
@@ -214,6 +176,7 @@
             box-shadow: 0 4px 0 #4e3aa5;
         }
 
+        /* صندوق التفسير الدائم */
         .explanation-box {
             background: #fff9e6;
             border: 2px solid #ffe082;
@@ -225,7 +188,6 @@
             display: none;
             animation: fadeIn 0.3s;
         }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -244,10 +206,7 @@
             display: inline-block;
             transition: 0.2s;
         }
-
-        .hint-btn:hover {
-            background: #ffe0b2;
-        }
+        .hint-btn:hover { background: #ffe0b2; }
 
         .star {
             position: fixed;
@@ -257,10 +216,9 @@
             animation: starFall 0.8s ease-out forwards;
             color: var(--gold);
         }
-
         @keyframes starFall {
-            0% { opacity: 1; transform: translate(0, 0) scale(1) rotate(0deg); }
-            100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.3) rotate(360deg); }
+            0% { opacity:1; transform: translate(0,0) scale(1) rotate(0deg); }
+            100% { opacity:0; transform: translate(var(--tx), var(--ty)) scale(0.3) rotate(360deg); }
         }
 
         .categories-grid {
@@ -270,7 +228,6 @@
             justify-content: center;
             margin: 20px 0;
         }
-
         .category-btn {
             background: #ffffff;
             border: 3px solid var(--btn);
@@ -280,18 +237,16 @@
             font-size: 1.3rem;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: 0.2s;
             min-width: 160px;
             box-shadow: 0 5px 15px rgba(124,93,250,0.1);
         }
-
         .category-btn:hover {
             background: var(--btn);
             color: white;
             transform: scale(1.05);
             box-shadow: 0 10px 25px rgba(124,93,250,0.3);
         }
-
         .back-btn, .reset-btn {
             background: none;
             border: 2px solid var(--btn);
@@ -304,11 +259,7 @@
             margin: 5px;
             transition: 0.2s;
         }
-
-        .back-btn:hover, .reset-btn:hover {
-            background: var(--btn);
-            color: white;
-        }
+        .back-btn:hover, .reset-btn:hover { background: var(--btn); color: white; }
 
         .completion-msg {
             font-size: 2rem;
@@ -316,7 +267,6 @@
             color: var(--correct);
             margin: 30px 0 10px;
         }
-
         .finish-stars {
             display: flex;
             justify-content: center;
@@ -324,6 +274,7 @@
             font-size: 3rem;
         }
 
+        /* زر الموسيقى */
         .music-toggle {
             position: absolute;
             top: 15px;
@@ -341,19 +292,82 @@
             justify-content: center;
             z-index: 10;
         }
+
+        /* ========== النافذة المنبثقة (Popup) ========== */
+        .popup-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.3s;
+        }
+        .popup-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .popup-card {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: pop 0.3s ease;
+        }
+        @keyframes pop {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .popup-card p {
+            font-size: 1.2rem;
+            color: #3e2a6e;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .popup-btn {
+            background: var(--correct);
+            color: white;
+            border: none;
+            padding: 12px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 5px 0 #2d8a5e;
+        }
+        .popup-btn:hover {
+            background: #3da876;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 0 #2d8a5e;
+        }
     </style>
 </head>
 <body>
-    <!-- ========== الشريط العلوي الثابت ========== -->
+    <!-- الشريط العلوي -->
     <header class="app-header">
         <img src="logo.png" alt="شعار نجوم القواعد" class="app-logo">
         <h1 class="app-title">نجوم القواعد</h1>
     </header>
 
-    <!-- ========== الحاوية الديناميكية للأسئلة ========== -->
+    <!-- الحاوية الرئيسية -->
     <div class="container" id="quizContainer">
         <button class="music-toggle" id="musicToggle" title="تشغيل/إيقاف الموسيقى">🎵</button>
-        <!-- المحتوى يتم حقنه هنا عبر JavaScript -->
+    </div>
+
+    <!-- النافذة المنبثقة (Popup) -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-card">
+            <p id="popupMessage"></p>
+            <button class="popup-btn" id="popupNextBtn">التالي ←</button>
+        </div>
     </div>
 
     <script>
@@ -367,8 +381,11 @@
             let audioCtx = null;
 
             const container = document.getElementById('quizContainer');
+            const popupOverlay = document.getElementById('popupOverlay');
+            const popupMessage = document.getElementById('popupMessage');
+            const popupNextBtn = document.getElementById('popupNextBtn');
 
-            // === تهيئة الصوتيات ===
+            // ========== الصوت ==========
             function initAudioContext() {
                 if (!audioCtx) {
                     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -387,10 +404,8 @@
                     osc.frequency.value = freq;
                     gain.gain.setValueAtTime(0.3, now + i * 0.12);
                     gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.12 + 0.3);
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-                    osc.start(now + i * 0.12);
-                    osc.stop(now + i * 0.12 + 0.3);
+                    osc.connect(gain); gain.connect(audioCtx.destination);
+                    osc.start(now + i * 0.12); osc.stop(now + i * 0.12 + 0.3);
                 });
             }
 
@@ -399,17 +414,14 @@
                 const now = audioCtx.currentTime;
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.value = 200;
+                osc.type = 'triangle'; osc.frequency.value = 200;
                 gain.gain.setValueAtTime(0.2, now);
                 gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(now);
-                osc.stop(now + 0.4);
+                osc.connect(gain); gain.connect(audioCtx.destination);
+                osc.start(now); osc.stop(now + 0.4);
             }
 
-            function startBackgroundMusic() {
+            function startBackgroundMusic() { /* ... كما هو سابقاً لم يتغير ... */
                 if (!audioCtx || backgroundGainNode) return;
                 const notes = [261.63, 329.63, 392.00, 523.25];
                 backgroundGainNode = audioCtx.createGain();
@@ -421,14 +433,11 @@
                     notes.forEach((freq, i) => {
                         const osc = audioCtx.createOscillator();
                         const noteGain = audioCtx.createGain();
-                        osc.type = 'sine';
-                        osc.frequency.value = freq;
+                        osc.type = 'sine'; osc.frequency.value = freq;
                         noteGain.gain.setValueAtTime(0.15, t + i * 0.7);
                         noteGain.gain.exponentialRampToValueAtTime(0.001, t + i * 0.7 + 0.6);
-                        osc.connect(noteGain);
-                        noteGain.connect(backgroundGainNode);
-                        osc.start(t + i * 0.7);
-                        osc.stop(t + i * 0.7 + 0.6);
+                        osc.connect(noteGain); noteGain.connect(backgroundGainNode);
+                        osc.start(t + i * 0.7); osc.stop(t + i * 0.7 + 0.6);
                     });
                     setTimeout(() => { if (musicEnabled && backgroundGainNode) playLoop(); }, notes.length * 700 - 50);
                 }
@@ -436,10 +445,7 @@
             }
 
             function stopBackgroundMusic() {
-                if (backgroundGainNode) {
-                    backgroundGainNode.disconnect();
-                    backgroundGainNode = null;
-                }
+                if (backgroundGainNode) { backgroundGainNode.disconnect(); backgroundGainNode = null; }
             }
 
             function toggleMusic() {
@@ -454,7 +460,7 @@
                 }
             }
 
-            // === تأثيرات النجوم ===
+            // ========== تأثيرات النجوم ==========
             function spawnStars(x, y, count = 12) {
                 const emojis = ['✨', '⭐', '🌟', '💫', '🎉'];
                 for (let i = 0; i < count; i++) {
@@ -479,10 +485,9 @@
                 };
             }
 
-            // === عرض شاشة اختيار الفئة ===
+            // ========== عرض الواجهات ==========
             function renderCategorySelection() {
                 container.innerHTML = '';
-                // زر الموسيقى
                 const musicBtn = document.createElement('button');
                 musicBtn.className = 'music-toggle';
                 musicBtn.id = 'musicToggle';
@@ -533,13 +538,13 @@
                 musicBtn.addEventListener('click', toggleMusic);
                 container.appendChild(musicBtn);
 
-                // بطاقة الفئة
+                // فئة
                 const catLabel = document.createElement('div');
                 catLabel.className = 'category-label';
                 catLabel.textContent = currentCategory;
                 container.appendChild(catLabel);
 
-                // التقدم
+                // تقدم
                 const progress = document.createElement('div');
                 progress.className = 'progress';
                 progress.textContent = `السؤال ${currentIndex + 1} من ${questions.length}`;
@@ -547,7 +552,7 @@
 
                 const q = questions[currentIndex];
 
-                // زر التلميح
+                // زر التلميح (يظهر فقط لو hint موجود)
                 if (q.hint && q.hint.trim() !== '') {
                     const hintBtn = document.createElement('button');
                     hintBtn.className = 'hint-btn';
@@ -572,13 +577,13 @@
                     container.appendChild(hintDiv);
                 }
 
-                // نص السؤال
+                // سؤال
                 const qBox = document.createElement('div');
                 qBox.className = 'question-box';
                 qBox.textContent = q.question;
                 container.appendChild(qBox);
 
-                // خيارات الإجابة
+                // خيارات
                 const optionsDiv = document.createElement('div');
                 optionsDiv.className = 'options';
                 q.options.forEach((opt, idx) => {
@@ -616,6 +621,15 @@
                 allBtns.forEach(b => b.disabled = disable);
             }
 
+            function showPopup(text, callback) {
+                popupMessage.textContent = text;
+                popupOverlay.classList.add('active');
+                popupNextBtn.onclick = () => {
+                    popupOverlay.classList.remove('active');
+                    if (callback) callback();
+                };
+            }
+
             function handleAnswer(selectedIdx, btnElement, event) {
                 if (container.dataset.locked === 'true') return;
                 container.dataset.locked = 'true';
@@ -626,6 +640,7 @@
 
                 initAudioContext();
 
+                // تأثير الزر
                 btnElement.classList.add(isCorrect ? 'correct-flash' : 'wrong-flash');
                 container.classList.add(isCorrect ? 'correct-bg' : 'wrong-bg');
                 if (isCorrect) {
@@ -635,7 +650,7 @@
                     playWrongSound();
                 }
 
-                // عرض التفسير
+                // إظهار التفسير
                 const explBox = document.getElementById('explanationBox');
                 if (explBox && selectedOption.explanation) {
                     explBox.textContent = selectedOption.explanation;
@@ -647,22 +662,26 @@
                 disableOptions(true);
 
                 if (isCorrect) {
-                    setTimeout(() => {
+                    // إظهار البوب أب مع التفسير وزر التالي
+                    const explText = selectedOption.explanation || 'إجابة صحيحة!';
+                    showPopup(explText, () => {
+                        // بعد الضغط على التالي
                         btnElement.classList.remove('correct-flash');
                         container.classList.remove('correct-bg');
                         if (explBox) explBox.style.display = 'none';
                         currentIndex++;
                         container.dataset.locked = 'false';
                         renderQuestion();
-                    }, 2000);
+                    });
                 } else {
+                    // بعد الخطأ: يبقى التفسير ظاهراً حتى يعيد المحاولة
                     setTimeout(() => {
                         btnElement.classList.remove('wrong-flash');
                         container.classList.remove('wrong-bg');
-                        if (explBox) explBox.style.display = 'none';
                         container.dataset.locked = 'false';
-                        disableOptions(false);
-                    }, 1500);
+                        disableOptions(false); // تمكين الأزرار مجدداً
+                        // ملاحظة: التفسير لا يُخفى، سيظل معروضاً
+                    }, 700);
                 }
             }
 
@@ -705,7 +724,7 @@
                 container.appendChild(actions);
             }
 
-            // === تحميل الأسئلة ===
+            // ========== تحميل الأسئلة ==========
             async function loadQuestions() {
                 try {
                     const res = await fetch('./questions.json');
@@ -733,8 +752,6 @@
             document.body.addEventListener('touchstart', initAudioContext, { once: true });
 
             loadQuestions();
-
-            // نجعل toggleMusic متاحة للاستدعاء من أزرار الموسيقى المُنشأة ديناميكياً
             window.toggleMusic = toggleMusic;
         })();
     </script>
