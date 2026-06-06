@@ -6,21 +6,26 @@
     <title>نجوم القواعد | تطبيق الأسئلة التفاعلي</title>
     <style>
         :root {
-            --bg: #f9f5ff;
-            --card: #ffffff;
-            --text: #3e2a6e;
-            --correct: #4caf93;
-            --wrong: #e07a5f;
-            --btn: #7c5dfa;
-            --btn-hover: #6a4bdb;
+            --bg-start: #0f0c29;
+            --bg-mid: #302b63;
+            --bg-end: #24243e;
+            --card: rgba(255,255,255,0.06);
+            --card-border: rgba(255,255,255,0.08);
+            --text: #f0eaff;
+            --text-dim: #a89fc8;
+            --accent: #f2c94c;
+            --accent2: #c084fc;
+            --correct: #4ade80;
+            --wrong: #fb7185;
             --gold: #f2c94c;
+            --radius: 18px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            background: linear-gradient(135deg, var(--bg-start), var(--bg-mid), var(--bg-end));
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -28,61 +33,63 @@
             justify-content: flex-start;
             padding: 20px;
             background-attachment: fixed;
+            color: var(--text);
         }
 
-        /* الشريط العلوي */
+        ::selection { background: var(--accent); color: #1a1a2e; }
+
         .app-header {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            border-radius: 0 0 30px 30px;
-            padding: 10px 25px;
-            margin-bottom: 25px;
+            background: rgba(255,255,255,0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 60px;
+            padding: 8px 28px;
+            margin-bottom: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            box-shadow: 0 8px 25px rgba(62, 42, 110, 0.12);
+            gap: 14px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
             width: 100%;
             max-width: 750px;
         }
         .app-logo {
-            height: 50px;
-            width: auto;
-            border-radius: 12px;
+            height: 44px; width: auto; border-radius: 50%;
             transition: transform 0.3s;
         }
-        .app-logo:hover { transform: rotate(-5deg) scale(1.1); }
+        .app-logo:hover { transform: rotate(-8deg) scale(1.1); }
         .app-title {
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #7c5dfa, #f2c94c);
+            font-size: 1.8rem; font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-        }
-        @media (max-width: 500px) {
-            .app-title { font-size: 1.5rem; }
-            .app-logo { height: 40px; }
+            letter-spacing: 1px;
         }
 
-        /* الحاوية */
         .container {
-            width: 100%;
-            max-width: 750px;
+            width: 100%; max-width: 750px;
             background: var(--card);
-            border-radius: 35px;
-            padding: 30px 25px 40px;
-            box-shadow: 0 20px 40px rgba(62, 42, 110, 0.15);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 30px 24px 36px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
             text-align: center;
             position: relative;
             overflow: hidden;
-            transition: background 0.4s;
+            transition: background 0.4s, border-color 0.4s;
             margin-bottom: 20px;
+            backdrop-filter: blur(4px);
         }
-        .container.correct-bg { background: #e6ffed; }
+        .container.correct-bg {
+            background: rgba(74,222,128,0.08);
+            border-color: rgba(74,222,128,0.25);
+        }
         .container.wrong-bg {
-            background: #fff0f0;
-            animation: shake 0.3s ease-in-out;
+            background: rgba(251,113,133,0.08);
+            border-color: rgba(251,113,133,0.25);
+            animation: shake 0.35s ease-in-out;
         }
         @keyframes shake {
             0%,100% { transform: translateX(0); }
@@ -91,59 +98,127 @@
             75% { transform: translateX(-3px); }
         }
 
-        .progress {
-            font-size: 1rem;
-            color: var(--text);
-            margin-bottom: 15px;
-            opacity: 0.8;
-            font-weight: 500;
+        .page-title {
+            font-size: 1.6rem; font-weight: 700; margin-bottom: 6px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
+        .page-sub {
+            font-size: 0.95rem; color: var(--text-dim); margin-bottom: 22px;
+        }
+
+        .card-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: center;
+            margin: 16px 0;
+        }
+        .card-btn {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: var(--text);
+            padding: 22px 24px;
+            border-radius: var(--radius);
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s;
+            min-width: 170px;
+            flex: 1 1 auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            text-align: center;
+            line-height: 1.5;
+        }
+        .card-btn:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.3);
+        }
+        .card-btn .icon { font-size: 2rem; display: block; margin-bottom: 6px; }
+        .card-btn small {
+            display: block; font-size: 0.8rem; font-weight: 400;
+            color: var(--text-dim); margin-top: 4px;
+        }
+
+        .back-row {
+            display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px;
+        }
+
+        .back-btn {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: var(--text);
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .back-btn:hover {
+            background: rgba(255,255,255,0.12);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
         .category-label {
             display: inline-block;
-            background: #e8e0ff;
-            color: #4a3a8a;
-            padding: 8px 25px;
+            background: rgba(192,132,252,0.15);
+            color: var(--accent2);
+            padding: 6px 22px;
             border-radius: 30px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             margin-bottom: 10px;
+            border: 1px solid rgba(192,132,252,0.2);
         }
+
+        .progress {
+            font-size: 0.95rem; color: var(--text-dim); font-weight: 500;
+        }
+
         .question-box {
-            background: #f3f0ff;
-            border-radius: 25px;
-            padding: 25px 20px;
-            margin-bottom: 25px;
-            font-size: 1.6rem;
-            font-weight: 700;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: var(--radius);
+            padding: 24px 20px;
+            margin-bottom: 22px;
+            font-size: 1.4rem;
+            font-weight: 600;
             color: var(--text);
-            line-height: 1.5;
+            line-height: 1.6;
             word-break: break-word;
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
         }
 
         .options {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 15px;
+            gap: 14px;
+            margin-bottom: 16px;
         }
         @media (max-width: 500px) {
             .options { grid-template-columns: 1fr; }
-            .question-box { font-size: 1.4rem; }
+            .question-box { font-size: 1.2rem; }
+            .page-title { font-size: 1.3rem; }
         }
 
         .option-btn {
-            background: var(--btn);
-            color: white;
-            border: none;
-            padding: 18px 10px;
-            font-size: 1.25rem;
-            font-weight: 600;
+            background: rgba(255,255,255,0.06);
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 16px 10px;
+            font-size: 1.15rem;
+            font-weight: 500;
             border-radius: 60px;
             cursor: pointer;
             transition: all 0.2s;
-            box-shadow: 0 8px 0 #4e3aa5, 0 10px 20px rgba(0,0,0,0.1);
-            transform: translateY(0);
             word-break: break-word;
             line-height: 1.4;
             display: flex;
@@ -151,67 +226,59 @@
             justify-content: center;
         }
         .option-btn:hover:not(:disabled) {
-            background: var(--btn-hover);
+            background: rgba(255,255,255,0.1);
+            border-color: var(--accent2);
             transform: translateY(-2px);
-            box-shadow: 0 10px 0 #4e3aa5, 0 12px 22px rgba(0,0,0,0.15);
-        }
-        .option-btn:active:not(:disabled) {
-            transform: translateY(4px);
-            box-shadow: 0 4px 0 #4e3aa5, 0 8px 15px rgba(0,0,0,0.1);
         }
         .option-btn.correct-flash {
-            background: var(--correct) !important;
-            box-shadow: 0 0 30px rgba(76,175,147,0.7);
-            transform: scale(1.05);
+            background: rgba(74,222,128,0.2) !important;
+            border-color: var(--correct) !important;
+            box-shadow: 0 0 30px rgba(74,222,128,0.2);
+            transform: scale(1.04);
         }
         .option-btn.wrong-flash {
-            background: var(--wrong) !important;
-            box-shadow: 0 0 25px rgba(224,122,95,0.7);
+            background: rgba(251,113,133,0.2) !important;
+            border-color: var(--wrong) !important;
+            box-shadow: 0 0 25px rgba(251,113,133,0.2);
             transform: scale(0.97);
         }
-        .option-btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: 0 4px 0 #4e3aa5;
-        }
+        .option-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-        /* صندوق التفسير الدائم */
         .explanation-box {
-            background: #fff9e6;
-            border: 2px solid #ffe082;
-            border-radius: 20px;
-            padding: 15px 20px;
-            margin: 15px 0 5px;
-            font-size: 1.1rem;
-            color: #5d4e37;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(242,201,76,0.2);
+            border-radius: var(--radius);
+            padding: 14px 18px;
+            margin: 12px 0 4px;
+            font-size: 1rem;
+            color: var(--text-dim);
             display: none;
             animation: fadeIn 0.3s;
+            text-align: right;
+            line-height: 1.6;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .hint-btn {
-            background: #fff3e0;
-            border: 2px solid #ffb74d;
-            color: #e65100;
-            padding: 10px 25px;
+            background: rgba(251,191,36,0.1);
+            border: 1px solid rgba(251,191,36,0.25);
+            color: var(--accent);
+            padding: 8px 22px;
             border-radius: 30px;
-            font-size: 1rem;
-            font-weight: bold;
+            font-size: 0.9rem;
+            font-weight: 600;
             cursor: pointer;
-            margin: 0 auto 15px;
+            margin: 0 auto 14px;
             display: inline-block;
             transition: 0.2s;
         }
-        .hint-btn:hover { background: #ffe0b2; }
+        .hint-btn:hover { background: rgba(251,191,36,0.2); }
 
         .star {
-            position: fixed;
-            pointer-events: none;
-            z-index: 1000;
+            position: fixed; pointer-events: none; z-index: 1000;
             font-size: 2rem;
             animation: starFall 0.8s ease-out forwards;
             color: var(--gold);
@@ -221,148 +288,111 @@
             100% { opacity:0; transform: translate(var(--tx), var(--ty)) scale(0.3) rotate(360deg); }
         }
 
-        .categories-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        .category-btn {
-            background: #ffffff;
-            border: 3px solid var(--btn);
-            color: var(--text);
-            padding: 20px 25px;
-            border-radius: 25px;
-            font-size: 1.3rem;
-            font-weight: bold;
+        .music-toggle {
+            position: absolute; top: 14px; left: 18px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 50%;
+            width: 38px; height: 38px;
+            font-size: 1.1rem;
             cursor: pointer;
-            transition: 0.2s;
-            min-width: 160px;
-            box-shadow: 0 5px 15px rgba(124,93,250,0.1);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10; transition: 0.2s;
         }
-        .category-btn:hover {
-            background: var(--btn);
-            color: white;
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(124,93,250,0.3);
-        }
-        .back-btn, .reset-btn {
-            background: none;
-            border: 2px solid var(--btn);
-            color: var(--btn);
-            padding: 12px 30px;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            margin: 5px;
-            transition: 0.2s;
-        }
-        .back-btn:hover, .reset-btn:hover { background: var(--btn); color: white; }
+        .music-toggle:hover { background: rgba(255,255,255,0.12); }
 
         .completion-msg {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--correct);
-            margin: 30px 0 10px;
+            font-size: 1.8rem; font-weight: 700;
+            background: linear-gradient(135deg, var(--correct), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 24px 0 8px;
         }
         .finish-stars {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            font-size: 3rem;
+            display: flex; justify-content: center; gap: 12px; font-size: 2.8rem;
         }
 
-        /* زر الموسيقى */
-        .music-toggle {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-        }
-
-        /* ========== النافذة المنبثقة (Popup) ========== */
         .popup-overlay {
-            position: fixed;
-            top: 0; left: 0;
+            position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: rgba(0,0,0,0.6);
+            display: flex; align-items: center; justify-content: center;
             z-index: 2000;
-            visibility: hidden;
-            opacity: 0;
+            visibility: hidden; opacity: 0;
             transition: 0.3s;
+            backdrop-filter: blur(4px);
         }
-        .popup-overlay.active {
-            visibility: visible;
-            opacity: 1;
-        }
+        .popup-overlay.active { visibility: visible; opacity: 1; }
         .popup-card {
-            background: white;
-            border-radius: 25px;
-            padding: 30px;
-            max-width: 500px;
-            width: 90%;
+            background: #1e1b3a;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 24px;
+            padding: 28px;
+            max-width: 480px; width: 90%;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 24px 60px rgba(0,0,0,0.5);
             animation: pop 0.3s ease;
         }
         @keyframes pop {
-            from { transform: scale(0.8); opacity: 0; }
+            from { transform: scale(0.85); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
         .popup-card p {
-            font-size: 1.2rem;
-            color: #3e2a6e;
-            margin-bottom: 20px;
-            line-height: 1.6;
+            font-size: 1.1rem; color: var(--text); margin-bottom: 20px; line-height: 1.6;
         }
         .popup-btn {
-            background: var(--correct);
-            color: white;
+            background: linear-gradient(135deg, var(--accent), #e6b800);
+            color: #1a1a2e;
             border: none;
             padding: 12px 40px;
-            font-size: 1.2rem;
-            font-weight: bold;
+            font-size: 1.1rem;
+            font-weight: 700;
             border-radius: 50px;
             cursor: pointer;
             transition: 0.2s;
-            box-shadow: 0 5px 0 #2d8a5e;
         }
-        .popup-btn:hover {
-            background: #3da876;
-            transform: translateY(-2px);
-            box-shadow: 0 7px 0 #2d8a5e;
+        .popup-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(242,201,76,0.3); }
+
+        .info-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 14px; flex-wrap: wrap; gap: 8px;
+        }
+        .diff-badge {
+            padding: 4px 14px; border-radius: 30px; font-size: 0.8rem;
+            font-weight: 700; display: inline-flex; align-items: center; gap: 5px;
+        }
+
+        .action-bar {
+            display: flex; justify-content: center; gap: 10px; margin-top: 14px; flex-wrap: wrap;
+        }
+
+        .rule-box {
+            display: none;
+            background: rgba(192,132,252,0.06);
+            border: 1px solid rgba(192,132,252,0.15);
+            border-radius: var(--radius);
+            padding: 14px 18px; margin-top: 12px;
+            font-size: 0.95rem; color: var(--text-dim);
+            line-height: 1.7; text-align: right;
+            animation: fadeIn 0.3s;
+        }
+
+        .level-desc {
+            font-size: 0.85rem; color: var(--text-dim); margin: 4px 0 14px;
         }
     </style>
 </head>
 <body>
-    <!-- الشريط العلوي -->
     <header class="app-header">
         <img src="logo.png" alt="شعار نجوم القواعد" class="app-logo">
         <h1 class="app-title">نجوم القواعد</h1>
     </header>
 
-    <!-- الحاوية الرئيسية -->
     <div class="container" id="quizContainer">
         <button class="music-toggle" id="musicToggle" title="تشغيل/إيقاف الموسيقى">🎵</button>
     </div>
 
-    <!-- النافذة المنبثقة (Popup) -->
     <div class="popup-overlay" id="popupOverlay">
         <div class="popup-card">
             <p id="popupMessage"></p>
@@ -379,6 +409,7 @@
             let musicEnabled = true;
             let backgroundGainNode = null;
             let audioCtx = null;
+            let currentRule = '';
 
             const container = document.getElementById('quizContainer');
             const popupOverlay = document.getElementById('popupOverlay');
@@ -402,7 +433,7 @@
                     const gain = audioCtx.createGain();
                     osc.type = 'sine';
                     osc.frequency.value = freq;
-                    gain.gain.setValueAtTime(0.3, now + i * 0.12);
+                    gain.gain.setValueAtTime(0.2, now + i * 0.12);
                     gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.12 + 0.3);
                     osc.connect(gain); gain.connect(audioCtx.destination);
                     osc.start(now + i * 0.12); osc.stop(now + i * 0.12 + 0.3);
@@ -414,18 +445,18 @@
                 const now = audioCtx.currentTime;
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
-                osc.type = 'triangle'; osc.frequency.value = 200;
-                gain.gain.setValueAtTime(0.2, now);
+                osc.type = 'triangle'; osc.frequency.value = 180;
+                gain.gain.setValueAtTime(0.15, now);
                 gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
                 osc.connect(gain); gain.connect(audioCtx.destination);
                 osc.start(now); osc.stop(now + 0.4);
             }
 
-            function startBackgroundMusic() { /* ... كما هو سابقاً لم يتغير ... */
+            function startBackgroundMusic() {
                 if (!audioCtx || backgroundGainNode) return;
                 const notes = [261.63, 329.63, 392.00, 523.25];
                 backgroundGainNode = audioCtx.createGain();
-                backgroundGainNode.gain.value = 0.04;
+                backgroundGainNode.gain.value = 0.03;
                 backgroundGainNode.connect(audioCtx.destination);
                 function playLoop() {
                     if (!musicEnabled || !backgroundGainNode) return;
@@ -434,7 +465,7 @@
                         const osc = audioCtx.createOscillator();
                         const noteGain = audioCtx.createGain();
                         osc.type = 'sine'; osc.frequency.value = freq;
-                        noteGain.gain.setValueAtTime(0.15, t + i * 0.7);
+                        noteGain.gain.setValueAtTime(0.12, t + i * 0.7);
                         noteGain.gain.exponentialRampToValueAtTime(0.001, t + i * 0.7 + 0.6);
                         osc.connect(noteGain); noteGain.connect(backgroundGainNode);
                         osc.start(t + i * 0.7); osc.stop(t + i * 0.7 + 0.6);
@@ -455,9 +486,7 @@
                 if (musicEnabled) {
                     initAudioContext();
                     if (!backgroundGainNode && audioCtx) startBackgroundMusic();
-                } else {
-                    stopBackgroundMusic();
-                }
+                } else { stopBackgroundMusic(); }
             }
 
             // ========== تأثيرات النجوم ==========
@@ -486,6 +515,13 @@
             }
 
             // ========== عرض الواجهات ==========
+            const catIcons = {
+                'الإضافة': '🔗',
+                'الممنوع من الصرف': '🚫',
+                'الأسماء المشتقة': '📝',
+                'النداء': '📣',
+                'النعت': '🏷️'
+            };
             function renderCategorySelection() {
                 container.innerHTML = '';
                 const musicBtn = document.createElement('button');
@@ -495,25 +531,63 @@
                 musicBtn.addEventListener('click', toggleMusic);
                 container.appendChild(musicBtn);
 
-                const title = document.createElement('h2');
+                const title = document.createElement('div');
+                title.className = 'page-title';
                 title.textContent = 'اختر فئة الأسئلة';
                 container.appendChild(title);
 
+                const sub = document.createElement('div');
+                sub.className = 'page-sub';
+                sub.textContent = 'اختر أحد أبواب النحو للتدرب عليها';
+                container.appendChild(sub);
+
                 const grid = document.createElement('div');
-                grid.className = 'categories-grid';
+                grid.className = 'card-grid';
                 Object.keys(allQuestions).forEach(cat => {
                     const btn = document.createElement('button');
-                    btn.className = 'category-btn';
-                    btn.textContent = cat;
+                    btn.className = 'card-btn';
+                    const catData = allQuestions[cat];
+                    const qs = catData.questions || catData;
+                    btn.innerHTML = `<span class="icon">${catIcons[cat] || '📖'}</span>${cat}<small>${qs.length} أسئلة</small>`;
                     btn.addEventListener('click', () => startCategory(cat));
                     grid.appendChild(btn);
                 });
                 container.appendChild(grid);
             }
 
+            function shuffle(arr) {
+                for (let i = arr.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                }
+                return arr;
+            }
+
             function startCategory(catName) {
                 currentCategory = catName;
-                questions = allQuestions[catName] || [];
+                const catData = allQuestions[catName];
+                let allQs;
+                if (catData.questions) {
+                    allQs = catData.questions;
+                    currentRule = catData.rule || '';
+                } else {
+                    allQs = catData;
+                    currentRule = '';
+                }
+                const levels = [
+                    { key: 'سهل', min: 1, max: 3 },
+                    { key: 'متوسط', min: 4, max: 6 },
+                    { key: 'صعب', min: 7, max: 10 }
+                ];
+                questions = [];
+                levels.forEach(({ key, min, max }) => {
+                    const group = allQs.filter(q => q.difficulty >= min && q.difficulty <= max);
+                    if (group.length) {
+                        shuffle(group);
+                        const header = { isHeader: true, label: key, count: group.length };
+                        questions.push(header, ...group);
+                    }
+                });
                 currentIndex = 0;
                 if (questions.length === 0) {
                     alert('لا توجد أسئلة في هذه الفئة');
@@ -530,7 +604,6 @@
                 }
                 container.innerHTML = '';
 
-                // زر الموسيقى
                 const musicBtn = document.createElement('button');
                 musicBtn.className = 'music-toggle';
                 musicBtn.id = 'musicToggle';
@@ -538,52 +611,91 @@
                 musicBtn.addEventListener('click', toggleMusic);
                 container.appendChild(musicBtn);
 
-                // فئة
+                // إذا كان العنصر الحالي رأس مجموعة
+                if (questions[currentIndex].isHeader) {
+                    const header = questions[currentIndex];
+                    const hColor = header.label === 'سهل' ? '#4ade80' : header.label === 'متوسط' ? '#facc15' : '#fb7185';
+                    const hIcon = header.label === 'سهل' ? '🟢' : header.label === 'متوسط' ? '🟡' : '🔴';
+
+                    const catLabel = document.createElement('div');
+                    catLabel.className = 'category-label';
+                    catLabel.textContent = `${catIcons[currentCategory] || ''} ${currentCategory}`;
+                    container.appendChild(catLabel);
+
+                    const groupBox = document.createElement('div');
+                    groupBox.style.cssText = `text-align:center; padding:40px 20px; border:1px dashed ${hColor}44; border-radius:var(--radius); margin:20px 0; background:${hColor}08;`;
+                    groupBox.innerHTML = `<div style="font-size:3rem; margin-bottom:10px;">${hIcon}</div>
+                        <div style="font-size:1.8rem; font-weight:700; color:${hColor};">المستوى ${header.label}</div>
+                        <div style="font-size:1rem; color:var(--text-dim); margin-top:6px;">${header.count} أسئلة</div>`;
+                    container.appendChild(groupBox);
+
+                    const startBtn = document.createElement('button');
+                    startBtn.className = 'popup-btn';
+                    startBtn.textContent = 'ابدأ';
+                    startBtn.style.cssText = 'background:linear-gradient(135deg, var(--accent), #e6b800); color:#1a1a2e; border:none; padding:14px 50px; font-size:1.2rem; font-weight:700; border-radius:50px; cursor:pointer; transition:0.2s; margin-top:10px;';
+                    startBtn.addEventListener('mouseenter', () => { startBtn.style.transform = 'translateY(-2px)'; startBtn.style.boxShadow = '0 8px 20px rgba(242,201,76,0.3)'; });
+                    startBtn.addEventListener('mouseleave', () => { startBtn.style.transform = ''; startBtn.style.boxShadow = ''; });
+                    startBtn.addEventListener('click', () => {
+                        currentIndex++;
+                        container.dataset.locked = 'false';
+                        renderQuestion();
+                    });
+                    container.appendChild(startBtn);
+
+                    container.dataset.locked = 'true';
+                    return;
+                }
+
                 const catLabel = document.createElement('div');
                 catLabel.className = 'category-label';
-                catLabel.textContent = currentCategory;
+                catLabel.textContent = `${catIcons[currentCategory] || ''} ${currentCategory}`;
                 container.appendChild(catLabel);
 
-                // تقدم
+                const q = questions[currentIndex];
+                const totalQs = questions.filter(q => !q.isHeader).length;
+                const doneQs = questions.slice(0, currentIndex + 1).filter(q => !q.isHeader).length;
+
+                const infoBar = document.createElement('div');
+                infoBar.className = 'info-bar';
+
                 const progress = document.createElement('div');
                 progress.className = 'progress';
-                progress.textContent = `السؤال ${currentIndex + 1} من ${questions.length}`;
-                container.appendChild(progress);
+                progress.textContent = `السؤال ${doneQs} من ${totalQs}`;
+                infoBar.appendChild(progress);
 
-                const q = questions[currentIndex];
+                const diffVal = q.difficulty || 5;
+                const diffColor = diffVal <= 3 ? '#4ade80' : diffVal <= 6 ? '#facc15' : '#fb7185';
+                const diffLabel = diffVal <= 3 ? 'سهل' : diffVal <= 6 ? 'متوسط' : 'صعب';
+                const diffBadge = document.createElement('span');
+                diffBadge.className = 'diff-badge';
+                diffBadge.style.cssText = `background:${diffColor}22; color:${diffColor}; border:1px solid ${diffColor}44; padding:4px 14px; border-radius:30px; font-size:0.8rem; font-weight:700; display:inline-flex; align-items:center; gap:5px;`;
+                diffBadge.innerHTML = `⚡ ${diffVal}/10 · ${diffLabel}`;
+                infoBar.appendChild(diffBadge);
 
-                // زر التلميح (يظهر فقط لو hint موجود)
+                container.appendChild(infoBar);
+
                 if (q.hint && q.hint.trim() !== '') {
                     const hintBtn = document.createElement('button');
                     hintBtn.className = 'hint-btn';
                     hintBtn.textContent = '💡 تلميح';
                     hintBtn.addEventListener('click', () => {
                         const hintText = document.getElementById('hintText');
-                        if (hintText) {
-                            hintText.style.display = hintText.style.display === 'none' ? 'block' : 'none';
-                        }
+                        if (hintText) hintText.style.display = hintText.style.display === 'none' ? 'block' : 'none';
                     });
                     container.appendChild(hintBtn);
 
                     const hintDiv = document.createElement('div');
                     hintDiv.id = 'hintText';
-                    hintDiv.style.display = 'none';
-                    hintDiv.style.background = '#fffde7';
-                    hintDiv.style.padding = '10px';
-                    hintDiv.style.borderRadius = '15px';
-                    hintDiv.style.marginBottom = '15px';
-                    hintDiv.style.color = '#5d4037';
+                    hintDiv.style.cssText = 'display:none; background:rgba(251,191,36,0.06); border:1px solid rgba(251,191,36,0.15); padding:10px 14px; border-radius:14px; margin-bottom:14px; color:var(--text-dim); text-align:right; font-size:0.95rem;';
                     hintDiv.textContent = q.hint;
                     container.appendChild(hintDiv);
                 }
 
-                // سؤال
                 const qBox = document.createElement('div');
                 qBox.className = 'question-box';
                 qBox.textContent = q.question;
                 container.appendChild(qBox);
 
-                // خيارات
                 const optionsDiv = document.createElement('div');
                 optionsDiv.className = 'options';
                 q.options.forEach((opt, idx) => {
@@ -595,23 +707,50 @@
                 });
                 container.appendChild(optionsDiv);
 
-                // صندوق التفسير
+                const actionBar = document.createElement('div');
+                actionBar.className = 'action-bar';
+
+                const ruleBtn = document.createElement('button');
+                ruleBtn.className = 'back-btn';
+                ruleBtn.style.borderColor = 'rgba(242,201,76,0.3)'; ruleBtn.style.color = 'var(--accent)';
+                ruleBtn.innerHTML = '📖 القاعدة';
+                ruleBtn.addEventListener('click', () => {
+                    const ruleBox = document.getElementById('ruleBox');
+                    if (ruleBox) ruleBox.style.display = ruleBox.style.display === 'none' ? 'block' : 'none';
+                });
+                actionBar.appendChild(ruleBtn);
+
+                const backBtn = document.createElement('button');
+                backBtn.className = 'back-btn';
+                backBtn.textContent = '🔙 العودة';
+                backBtn.addEventListener('click', () => {
+                    currentCategory = null; questions = []; currentIndex = 0;
+                    renderCategorySelection();
+                });
+                actionBar.appendChild(backBtn);
+
+                container.appendChild(actionBar);
+
+                const ruleBox = document.createElement('div');
+                ruleBox.className = 'rule-box';
+                ruleBox.id = 'ruleBox';
+                if (currentRule) {
+                    ruleBox.innerHTML = `📜 <strong>القاعدة:</strong><br>${currentRule}`;
+                } else {
+                    ruleBox.textContent = 'لا توجد قاعدة مسجلة لهذه الفئة.';
+                }
+                container.appendChild(ruleBox);
+
+                const explLabel = document.createElement('div');
+                explLabel.style.cssText = 'display:none; font-weight:600; color:var(--accent2); margin-top:14px; margin-bottom:4px; text-align:right; font-size:1rem;';
+                explLabel.id = 'explanationLabel';
+                explLabel.textContent = '💡 التفسير';
+                container.appendChild(explLabel);
+
                 const explBox = document.createElement('div');
                 explBox.className = 'explanation-box';
                 explBox.id = 'explanationBox';
                 container.appendChild(explBox);
-
-                // زر العودة
-                const backBtn = document.createElement('button');
-                backBtn.className = 'back-btn';
-                backBtn.textContent = '🔙 العودة للفئات';
-                backBtn.addEventListener('click', () => {
-                    currentCategory = null;
-                    questions = [];
-                    currentIndex = 0;
-                    renderCategorySelection();
-                });
-                container.appendChild(backBtn);
 
                 container.dataset.locked = 'false';
             }
@@ -640,32 +779,27 @@
 
                 initAudioContext();
 
-                // تأثير الزر
                 btnElement.classList.add(isCorrect ? 'correct-flash' : 'wrong-flash');
                 container.classList.add(isCorrect ? 'correct-bg' : 'wrong-bg');
-                if (isCorrect) {
-                    playCorrectSound();
-                    spawnStars(pos.x, pos.y, 15);
-                } else {
-                    playWrongSound();
-                }
+                if (isCorrect) { playCorrectSound(); spawnStars(pos.x, pos.y, 15); }
+                else { playWrongSound(); }
 
-                // إظهار التفسير
                 const explBox = document.getElementById('explanationBox');
+                const explLabel = document.getElementById('explanationLabel');
                 if (explBox && selectedOption.explanation) {
                     explBox.textContent = selectedOption.explanation;
                     explBox.style.display = 'block';
-                } else if (explBox) {
-                    explBox.style.display = 'none';
+                    if (explLabel) explLabel.style.display = 'block';
+                } else {
+                    if (explBox) explBox.style.display = 'none';
+                    if (explLabel) explLabel.style.display = 'none';
                 }
 
                 disableOptions(true);
 
                 if (isCorrect) {
-                    // إظهار البوب أب مع التفسير وزر التالي
                     const explText = selectedOption.explanation || 'إجابة صحيحة!';
                     showPopup(explText, () => {
-                        // بعد الضغط على التالي
                         btnElement.classList.remove('correct-flash');
                         container.classList.remove('correct-bg');
                         if (explBox) explBox.style.display = 'none';
@@ -674,18 +808,17 @@
                         renderQuestion();
                     });
                 } else {
-                    // بعد الخطأ: يبقى التفسير ظاهراً حتى يعيد المحاولة
                     setTimeout(() => {
                         btnElement.classList.remove('wrong-flash');
                         container.classList.remove('wrong-bg');
                         container.dataset.locked = 'false';
-                        disableOptions(false); // تمكين الأزرار مجدداً
-                        // ملاحظة: التفسير لا يُخفى، سيظل معروضاً
+                        disableOptions(false);
                     }, 700);
                 }
             }
 
             function showCompletion() {
+                const savedCategory = currentCategory;
                 container.innerHTML = '';
                 const musicBtn = document.createElement('button');
                 musicBtn.className = 'music-toggle';
@@ -696,8 +829,13 @@
 
                 const msg = document.createElement('div');
                 msg.className = 'completion-msg';
-                msg.textContent = `🎉 أنهيت فئة "${currentCategory}"`;
+                msg.textContent = `🎉 أكملت فئة "${savedCategory}"`;
                 container.appendChild(msg);
+
+                const sub = document.createElement('div');
+                sub.className = 'page-sub';
+                sub.textContent = 'جميع المستويات تمت بنجاح';
+                container.appendChild(sub);
 
                 const stars = document.createElement('div');
                 stars.className = 'finish-stars';
@@ -710,16 +848,17 @@
                 backBtn.className = 'back-btn';
                 backBtn.textContent = '🔙 العودة للفئات';
                 backBtn.addEventListener('click', () => {
-                    currentCategory = null;
-                    questions = [];
-                    currentIndex = 0;
+                    currentCategory = null; questions = []; currentIndex = 0;
                     renderCategorySelection();
                 });
                 actions.appendChild(backBtn);
                 const againBtn = document.createElement('button');
-                againBtn.className = 'reset-btn';
-                againBtn.textContent = '🔄 إعادة هذه الفئة';
-                againBtn.addEventListener('click', () => { currentIndex = 0; renderQuestion(); });
+                againBtn.className = 'back-btn';
+                againBtn.textContent = '🔄 إعادة الفئة';
+                againBtn.addEventListener('click', () => {
+                    currentCategory = null; questions = []; currentIndex = 0;
+                    startCategory(savedCategory);
+                });
                 actions.appendChild(againBtn);
                 container.appendChild(actions);
             }
@@ -731,7 +870,11 @@
                     if (!res.ok) throw new Error('تعذر تحميل الملف');
                     const data = await res.json();
                     if (typeof data !== 'object' || Array.isArray(data)) throw new Error('يجب أن يكون الملف كائناً بمفاتيح الفئات');
-                    for (const [cat, arr] of Object.entries(data)) {
+                    for (const [cat, val] of Object.entries(data)) {
+                        let arr;
+                        if (val.questions) { arr = val.questions; }
+                        else if (Array.isArray(val)) { arr = val; }
+                        else { throw new Error(`الفئة ${cat} يجب أن تحتوي على مصفوفة questions`); }
                         if (!Array.isArray(arr)) throw new Error(`الفئة ${cat} ليست مصفوفة`);
                         arr.forEach((q, i) => {
                             if (!q.question || !Array.isArray(q.options) || q.options.length < 2) throw new Error(`السؤال ${i+1} في ${cat} غير مكتمل`);
@@ -743,7 +886,7 @@
                     allQuestions = data;
                     renderCategorySelection();
                 } catch (err) {
-                    container.innerHTML = `<h2 style="color:red;">⚠️ ${err.message}</h2>`;
+                    container.innerHTML = `<h2 style="color:var(--wrong);">⚠️ ${err.message}</h2>`;
                     console.error(err);
                 }
             }
