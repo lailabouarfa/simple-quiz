@@ -752,7 +752,7 @@
 
                 // ===== صندوق القاعدة =====
                 const ruleBox = document.createElement('div');
-                ruleBox.className = 'rule-box'; ruleBox.id = 'ruleBox';
+                ruleBox.className = 'rule-box'; ruleBox.id = 'ruleBox'; ruleBox.style.display = 'none';
                 if (currentRule) { ruleBox.innerHTML = `📜 <strong>القاعدة:</strong><br>${currentRule}`; }
                 else { ruleBox.textContent = 'لا توجد قاعدة مسجلة.'; }
                 container.appendChild(ruleBox);
