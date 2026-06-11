@@ -375,6 +375,7 @@
             let groupResults = [];
             let currentGroupLabel = '';
             let groupCorrectCounter = 0;
+            let pendingTimeout = false;
 
             const container = document.getElementById('quizContainer');
             const popupOverlay = document.getElementById('popupOverlay');
@@ -512,7 +513,7 @@
                 clearTimer();
                 score = 0; lives = 3; streak = 0; maxStreak = 0;
                 totalCorrect = 0; totalWrong = 0; groupResults = [];
-                currentIndex = 0; questions = []; currentRule = '';
+                currentIndex = 0; questions = []; currentRule = ''; pendingTimeout = false;
                 // clear any transient state classes on the container
                 if (container) container.classList.remove('wrong-bg', 'correct-bg');
             }
@@ -607,6 +608,7 @@
             // ===== عرض السؤال =====
             function renderQuestion() {
                 clearTimer();
+                pendingTimeout = false;
                 if (questions.length === 0 || currentIndex >= questions.length) {
                     showCompletion();
                     return;
@@ -797,36 +799,8 @@
                 }, 1000);
             }
 
-            function resumeTimer() {
-                if (timerId) { clearInterval(timerId); timerId = null; }
-                if (timeLeft <= 0) { handleTimeout(); return; }
-                const td = document.getElementById('timerDisplay');
-                if (td) {
-                    td.textContent = `⏱ ${timeLeft}`;
-                    td.style.color = timeLeft <= 5 ? '#fb7185' : timeLeft <= 10 ? '#facc15' : 'var(--text)';
-                    if (timeLeft <= 5) td.style.animation = 'shake 0.2s ease-in-out';
-                    else td.style.animation = '';
-                }
-                timerId = setInterval(() => {
-                    timeLeft--;
-                    const td2 = document.getElementById('timerDisplay');
-                    if (td2) {
-                        td2.textContent = `⏱ ${timeLeft}`;
-                        td2.style.color = timeLeft <= 5 ? '#fb7185' : timeLeft <= 10 ? '#facc15' : 'var(--text)';
-                        if (timeLeft <= 5) td2.style.animation = 'shake 0.2s ease-in-out';
-                        else td2.style.animation = '';
-                    }
-                    if (timeLeft <= 0) {
-                        clearInterval(timerId);
-                        timerId = null;
-                        handleTimeout();
-                    }
-                }, 1000);
-            }
-
             function handleAnswer(selectedIdx, btnElement, event) {
                 if (container.dataset.locked === 'true') return;
-                clearTimer();
                 container.dataset.locked = 'true';
 
                 const q = questions[currentIndex];
@@ -875,6 +849,7 @@
                 disableOptions(true);
 
                 if (isCorrect) {
+                    clearTimer();
                     const msg = selectedOption.explanation || '✅ إجابة صحيحة!';
                     showPopup(msg, () => {
                         btnElement.classList.remove('correct-flash');
@@ -903,6 +878,18 @@
                     showPopup(msg, () => {
                         btnElement.classList.remove('wrong-flash');
                         container.classList.remove('wrong-bg');
+
+                        // if no lives left, show game over
+                        if (lives <= 0) { showGameOver(); return; }
+
+                        // if time ran out during the popup, handle it
+                        if (pendingTimeout) {
+                            pendingTimeout = false;
+                            container.dataset.locked = 'false';
+                            handleTimeout();
+                            return;
+                        }
+
                         container.dataset.locked = 'false';
 
                         // leave this question in place; disable only the selected (wrong) option
@@ -910,18 +897,12 @@
                             if (b === btnElement) b.disabled = true;
                             else b.disabled = false;
                         });
-
-                        // if no lives left, show game over
-                        if (lives <= 0) { showGameOver(); return; }
-
-                        // resume the timer from where it stopped
-                        resumeTimer();
                     });
                 }
             }
 
             function handleTimeout() {
-                if (container.dataset.locked === 'true') return;
+                if (container.dataset.locked === 'true') { pendingTimeout = true; return; }
                 container.dataset.locked = 'true';
                 totalWrong++;
                 streak = 0;
@@ -1018,7 +999,7 @@
             }
 
             function showGameOver() {
-                clearTimer();
+                clearTimer(); pendingTimeout = false;
                 // remove transient classes before rendering end screen
                 if (container) container.classList.remove('wrong-bg', 'correct-bg');
                 container.innerHTML = '';
@@ -1059,7 +1040,7 @@
 
             // ===== الإكمال =====
             function showCompletion() {
-                clearTimer();
+                clearTimer(); pendingTimeout = false;
                 // remove transient classes before rendering completion screen
                 if (container) container.classList.remove('wrong-bg', 'correct-bg');
                 container.innerHTML = '';
