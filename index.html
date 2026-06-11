@@ -797,6 +797,33 @@
                 }, 1000);
             }
 
+            function resumeTimer() {
+                if (timerId) { clearInterval(timerId); timerId = null; }
+                if (timeLeft <= 0) { handleTimeout(); return; }
+                const td = document.getElementById('timerDisplay');
+                if (td) {
+                    td.textContent = `⏱ ${timeLeft}`;
+                    td.style.color = timeLeft <= 5 ? '#fb7185' : timeLeft <= 10 ? '#facc15' : 'var(--text)';
+                    if (timeLeft <= 5) td.style.animation = 'shake 0.2s ease-in-out';
+                    else td.style.animation = '';
+                }
+                timerId = setInterval(() => {
+                    timeLeft--;
+                    const td2 = document.getElementById('timerDisplay');
+                    if (td2) {
+                        td2.textContent = `⏱ ${timeLeft}`;
+                        td2.style.color = timeLeft <= 5 ? '#fb7185' : timeLeft <= 10 ? '#facc15' : 'var(--text)';
+                        if (timeLeft <= 5) td2.style.animation = 'shake 0.2s ease-in-out';
+                        else td2.style.animation = '';
+                    }
+                    if (timeLeft <= 0) {
+                        clearInterval(timerId);
+                        timerId = null;
+                        handleTimeout();
+                    }
+                }, 1000);
+            }
+
             function handleAnswer(selectedIdx, btnElement, event) {
                 if (container.dataset.locked === 'true') return;
                 clearTimer();
@@ -887,8 +914,8 @@
                         // if no lives left, show game over
                         if (lives <= 0) { showGameOver(); return; }
 
-                        // restart the timer for the same question
-                        startQuestionTimer();
+                        // resume the timer from where it stopped
+                        resumeTimer();
                     });
                 }
             }
