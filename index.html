@@ -3,284 +3,326 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نجوم القواعد | تطبيق الأسئلة التفاعلي</title>
+    <title>نجوم القواعد</title>
     <style>
         :root {
-            --bg-start: #0f0c29;
-            --bg-mid: #302b63;
-            --bg-end: #24243e;
-            --card: rgba(255,255,255,0.06);
-            --card-border: rgba(255,255,255,0.08);
+            --surface: #16162a;
+            --card: #1e1d3a;
+            --border: rgba(255,255,255,0.06);
             --text: #f0eaff;
-            --text-dim: #a89fc8;
-            --accent: #f2c94c;
-            --accent2: #c084fc;
+            --dim: #9892b8;
+            --gold: #f2c94c;
+            --purple: #c084fc;
             --correct: #4ade80;
             --wrong: #fb7185;
-            --gold: #f2c94c;
-            --radius: 18px;
+            --radius: 14px;
+            --container-max: 920px;
+            --container-min: 320px;
+            --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        html, body { height: 100%; overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--bg-start), var(--bg-mid), var(--bg-end));
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding: 20px;
-            background-attachment: fixed;
-            color: var(--text);
+            font-family: var(--font);
+            background: #0e0d1a;
+            min-height: 100dvh;
+            display: flex; flex-direction: column; align-items: center;
+            padding: 12px; color: var(--text);
         }
 
-        ::selection { background: var(--accent); color: #1a1a2e; }
-
+        /* ===== الهيدر ===== */
         .app-header {
-            background: rgba(255,255,255,0.04);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 60px;
-            padding: 8px 28px;
-            margin-bottom: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 14px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            width: 100%;
-            max-width: 750px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 8px 14px; margin-bottom: 16px;
+            display: flex; align-items: center; justify-content: space-between; gap: 10px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+            width: 100%; max-width: var(--container-max); min-width: var(--container-min);
         }
-        .app-logo {
-            height: 44px; width: auto; border-radius: 50%;
-            transition: transform 0.3s;
-        }
-        .app-logo:hover { transform: rotate(-8deg) scale(1.1); }
+        .app-logo { height: 34px; width: auto; border-radius: 50%; }
         .app-title {
-            font-size: 1.8rem; font-weight: 800;
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 1.1rem; font-weight: 800; flex: 1; text-align: center;
+            background: linear-gradient(135deg, var(--gold), var(--purple));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
-            letter-spacing: 1px;
         }
 
+        /* ===== الحاوية ===== */
         .container {
-            width: 100%; max-width: 750px;
+            width: 100%; max-width: var(--container-max); min-width: var(--container-min);
             background: var(--card);
-            border: 1px solid var(--card-border);
-            border-radius: 28px;
-            padding: 30px 24px 36px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transition: background 0.4s, border-color 0.4s;
-            margin-bottom: 20px;
-            backdrop-filter: blur(4px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 20px 16px 24px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+            text-align: center; position: relative;
+            transition: background 0.25s, border-color 0.25s;
+            margin-bottom: 14px;
         }
-        .container.correct-bg {
-            background: rgba(74,222,128,0.08);
-            border-color: rgba(74,222,128,0.25);
-        }
-        .container.wrong-bg {
-            background: rgba(251,113,133,0.08);
-            border-color: rgba(251,113,133,0.25);
-            animation: shake 0.35s ease-in-out;
-        }
+        .container.correct-bg { background: #1a2e24; border-color: rgba(74,222,128,0.2); }
+        .container.wrong-bg { background: #2e1a1e; border-color: rgba(251,113,133,0.2); animation: shake 0.3s ease-in-out; }
         @keyframes shake {
             0%,100% { transform: translateX(0); }
-            25% { transform: translateX(-6px); }
-            50% { transform: translateX(6px); }
-            75% { transform: translateX(-3px); }
+            25% { transform: translateX(-4px); }
+            50% { transform: translateX(4px); }
+            75% { transform: translateX(-2px); }
         }
 
         .page-title {
-            font-size: 1.6rem; font-weight: 700; margin-bottom: 6px;
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 1.25rem; font-weight: 700; margin-bottom: 2px;
+            background: linear-gradient(135deg, var(--gold), var(--purple));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .page-sub {
-            font-size: 0.95rem; color: var(--text-dim); margin-bottom: 22px;
-        }
+        .page-sub { font-size: 0.8rem; color: var(--dim); margin-bottom: 14px; }
 
+        /* ===== أزرار الفئات ===== */
         .card-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            justify-content: center;
-            margin: 16px 0;
+            display: flex; flex-direction: column; gap: 10px;
+            margin: 10px 0;
+        }
+        @media (min-width: 600px) {
+            .card-grid { flex-direction: row; flex-wrap: wrap; gap: 12px; }
+            .card-btn { width: calc(50% - 6px); }
         }
         .card-btn {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
             color: var(--text);
-            padding: 22px 24px;
+            padding: 14px 16px;
             border-radius: var(--radius);
-            font-size: 1.2rem;
+            font-size: 1.02rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.25s;
-            min-width: 170px;
-            flex: 1 1 auto;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.18s;
             text-align: center;
             line-height: 1.5;
+            width: 100%;
         }
-        .card-btn:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: var(--accent);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 28px rgba(0,0,0,0.3);
-        }
-        .card-btn .icon { font-size: 2rem; display: block; margin-bottom: 6px; }
-        .card-btn small {
-            display: block; font-size: 0.8rem; font-weight: 400;
-            color: var(--text-dim); margin-top: 4px;
-        }
-
-        .back-row {
-            display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px;
-        }
+        .card-btn:active { transform: scale(0.98); background: rgba(255,255,255,0.06); border-color: var(--gold); }
+        .card-btn .icon { font-size: 1.6rem; display: inline-block; margin-left: 8px; vertical-align: middle; }
+        .card-btn small { display: block; font-size: 0.72rem; font-weight: 400; color: var(--dim); margin-top: 2px; }
 
         .back-btn {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
             color: var(--text);
-            padding: 10px 24px;
+            padding: 10px 20px;
             border-radius: 40px;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.15s;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
+            -webkit-user-select: none; user-select: none;
         }
-        .back-btn:hover {
-            background: rgba(255,255,255,0.12);
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
+        .back-btn:active { background: rgba(255,255,255,0.1); transform: scale(0.96); }
 
-        .category-label {
+        /* ===== شريط اللعب ===== */
+        .game-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 40px; margin-bottom: 12px;
+            border: 1px solid var(--border);
+            font-size: 0.8rem; gap: 4px;
+            min-height: 40px;
+        }
+        .game-bar .score { color: var(--gold); font-weight: 700; }
+        .game-bar .lives { color: var(--wrong); font-weight: 600; letter-spacing: 1px; }
+        .game-bar .streak { color: var(--correct); font-weight: 600; }
+        .game-bar .timer { font-weight: 700; font-size: 0.85rem; min-width: 36px; }
+
+        .cat-tag {
             display: inline-block;
-            background: rgba(192,132,252,0.15);
-            color: var(--accent2);
-            padding: 6px 22px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            border: 1px solid rgba(192,132,252,0.2);
+            background: rgba(192,132,252,0.1);
+            color: var(--purple);
+            padding: 4px 14px; border-radius: 30px;
+            font-size: 0.72rem; font-weight: 600; margin-bottom: 4px;
         }
 
-        .progress {
-            font-size: 0.95rem; color: var(--text-dim); font-weight: 500;
+        .progress-wrap {
+            width: 100%; height: 3px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px; margin-bottom: 14px; overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%; border-radius: 4px; transition: width 0.4s ease;
+            background: linear-gradient(90deg, var(--gold), var(--purple));
         }
 
         .question-box {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.06);
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 24px 20px;
-            margin-bottom: 22px;
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: var(--text);
-            line-height: 1.6;
+            padding: 18px 14px; margin-bottom: 14px;
+            font-size: 1.15rem; font-weight: 600; line-height: 1.6;
             word-break: break-word;
         }
 
+        /* ===== الخيارات ===== */
         .options {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 14px;
-            margin-bottom: 16px;
+            gap: 10px; margin-bottom: 10px;
         }
-        @media (max-width: 500px) {
+        @media (max-width: 520px) {
             .options { grid-template-columns: 1fr; }
-            .question-box { font-size: 1.2rem; }
-            .page-title { font-size: 1.3rem; }
+        }
+        @media (min-width: 900px) {
+            .options { grid-template-columns: repeat(2, minmax(220px, 1fr)); gap: 14px; }
+            .container { padding: 28px 24px 32px; }
         }
 
         .option-btn {
-            background: rgba(255,255,255,0.06);
+            background: rgba(255,255,255,0.04);
             color: var(--text);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 16px 10px;
-            font-size: 1.15rem;
-            font-weight: 500;
-            border-radius: 60px;
+            border: 1px solid var(--border);
+            padding: 14px 8px;
+            font-size: 1rem; font-weight: 500;
+            border-radius: 40px;
             cursor: pointer;
-            transition: all 0.2s;
-            word-break: break-word;
-            line-height: 1.4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            transition: all 0.15s;
+            word-break: break-word; line-height: 1.4;
+            -webkit-user-select: none; user-select: none;
         }
-        .option-btn:hover:not(:disabled) {
-            background: rgba(255,255,255,0.1);
-            border-color: var(--accent2);
-            transform: translateY(-2px);
-        }
+        .option-btn:active:not(:disabled) { transform: scale(0.97); background: rgba(255,255,255,0.08); }
         .option-btn.correct-flash {
-            background: rgba(74,222,128,0.2) !important;
+            background: rgba(74,222,128,0.12) !important;
             border-color: var(--correct) !important;
-            box-shadow: 0 0 30px rgba(74,222,128,0.2);
-            transform: scale(1.04);
+            box-shadow: 0 0 16px rgba(74,222,128,0.12);
+            transform: scale(1.02);
         }
         .option-btn.wrong-flash {
-            background: rgba(251,113,133,0.2) !important;
+            background: rgba(251,113,133,0.12) !important;
             border-color: var(--wrong) !important;
-            box-shadow: 0 0 25px rgba(251,113,133,0.2);
+            box-shadow: 0 0 16px rgba(251,113,133,0.12);
             transform: scale(0.97);
         }
-        .option-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-        .explanation-box {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(242,201,76,0.2);
-            border-radius: var(--radius);
-            padding: 14px 18px;
-            margin: 12px 0 4px;
-            font-size: 1rem;
-            color: var(--text-dim);
-            display: none;
-            animation: fadeIn 0.3s;
-            text-align: right;
-            line-height: 1.6;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .option-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
 
         .hint-btn {
-            background: rgba(251,191,36,0.1);
-            border: 1px solid rgba(251,191,36,0.25);
-            color: var(--accent);
-            padding: 8px 22px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin: 0 auto 14px;
-            display: inline-block;
+            background: rgba(251,191,36,0.06);
+            border: 1px solid rgba(251,191,36,0.15);
+            color: var(--gold);
+            padding: 6px 16px; border-radius: 30px;
+            font-size: 0.8rem; font-weight: 600; cursor: pointer;
+            margin: 0 auto 10px; display: inline-block; transition: 0.15s;
+        }
+        .hint-btn:active { background: rgba(251,191,36,0.12); }
+
+        .explanation-box {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(242,201,76,0.1);
+            border-radius: var(--radius);
+            padding: 10px 14px;
+            margin: 8px 0 2px;
+            font-size: 0.9rem; color: var(--dim);
+            display: none; animation: fadeIn 0.25s;
+            text-align: right; line-height: 1.6;
+        }
+        .rule-box {
+            display: none;
+            background: rgba(192,132,252,0.04);
+            border: 1px solid rgba(192,132,252,0.1);
+            border-radius: var(--radius);
+            padding: 10px 14px; margin-top: 8px;
+            font-size: 0.85rem; color: var(--dim);
+            line-height: 1.7; text-align: right;
+            animation: fadeIn 0.25s;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+        .action-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+
+        /* ===== مقدمة المجموعة ===== */
+        .group-intro {
+            text-align: center; padding: 28px 16px;
+            border: 1px dashed rgba(255,255,255,0.08);
+            border-radius: var(--radius); margin: 14px 0;
+        }
+        .group-intro .gi-icon { font-size: 2.2rem; margin-bottom: 6px; }
+        .group-intro .gi-title { font-size: 1.35rem; font-weight: 700; margin-bottom: 2px; }
+        .group-intro .gi-count { font-size: 0.85rem; color: var(--dim); }
+
+        .start-btn {
+            background: linear-gradient(135deg, var(--gold), #d4a800);
+            color: #0e0d1a;
+            border: none; padding: 12px 40px; font-size: 1rem;
+            font-weight: 700; border-radius: 50px; cursor: pointer;
+            transition: 0.15s; margin-top: 10px;
+        }
+        .start-btn:active { transform: scale(0.96); }
+
+        /* ===== نافذة منبثقة ===== */
+        .popup-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 2000; visibility: hidden; opacity: 0;
             transition: 0.2s;
         }
-        .hint-btn:hover { background: rgba(251,191,36,0.2); }
+        .popup-overlay.active { visibility: visible; opacity: 1; }
+        .popup-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px 20px;
+            max-width: 380px; width: 88%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: pop 0.2s ease;
+        }
+        @keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .popup-card p { font-size: 0.95rem; color: var(--text); margin-bottom: 14px; line-height: 1.6; }
+        .popup-btn {
+            background: linear-gradient(135deg, var(--gold), #d4a800);
+            color: #0e0d1a;
+            border: none; padding: 10px 32px;
+            font-size: 0.95rem; font-weight: 700;
+            border-radius: 50px; cursor: pointer; transition: 0.15s;
+        }
+        .popup-btn:active { transform: scale(0.96); }
+
+        /* ===== النتائج ===== */
+        .result-bar {
+            display: flex; justify-content: center; gap: 12px;
+            flex-wrap: wrap; margin: 14px 0;
+        }
+        .result-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 10px 14px; min-width: 80px; flex: 1;
+        }
+        .result-item .ri-label { font-size: 0.65rem; color: var(--dim); margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .result-item .ri-value { font-size: 1.2rem; font-weight: 700; }
+
+        .rules-list { text-align: right; margin: 10px 0; }
+        .rules-list li {
+            list-style: none; padding: 5px 0;
+            font-size: 0.85rem; color: var(--dim);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .rules-list li::before { content: '▸ '; color: var(--gold); font-weight: bold; }
+
+        .music-toggle {
+            position: absolute; top: 10px; right: 12px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 50%; width: 32px; height: 32px;
+            font-size: 0.9rem; cursor: pointer; transition: 0.15s;
+            display: flex; align-items: center; justify-content: center; z-index: 10;
+        }
+        .music-toggle:active { background: rgba(255,255,255,0.1); }
 
         .star {
             position: fixed; pointer-events: none; z-index: 1000;
-            font-size: 2rem;
-            animation: starFall 0.8s ease-out forwards;
+            font-size: 1.4rem;
+            animation: starFall 0.6s ease-out forwards;
             color: var(--gold);
         }
         @keyframes starFall {
@@ -288,98 +330,9 @@
             100% { opacity:0; transform: translate(var(--tx), var(--ty)) scale(0.3) rotate(360deg); }
         }
 
-        .music-toggle {
-            position: absolute; top: 14px; left: 18px;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 50%;
-            width: 38px; height: 38px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            z-index: 10; transition: 0.2s;
-        }
-        .music-toggle:hover { background: rgba(255,255,255,0.12); }
-
-        .completion-msg {
-            font-size: 1.8rem; font-weight: 700;
-            background: linear-gradient(135deg, var(--correct), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 24px 0 8px;
-        }
-        .finish-stars {
-            display: flex; justify-content: center; gap: 12px; font-size: 2.8rem;
-        }
-
-        .popup-overlay {
-            position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            display: flex; align-items: center; justify-content: center;
-            z-index: 2000;
-            visibility: hidden; opacity: 0;
-            transition: 0.3s;
-            backdrop-filter: blur(4px);
-        }
-        .popup-overlay.active { visibility: visible; opacity: 1; }
-        .popup-card {
-            background: #1e1b3a;
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 24px;
-            padding: 28px;
-            max-width: 480px; width: 90%;
-            text-align: center;
-            box-shadow: 0 24px 60px rgba(0,0,0,0.5);
-            animation: pop 0.3s ease;
-        }
-        @keyframes pop {
-            from { transform: scale(0.85); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        .popup-card p {
-            font-size: 1.1rem; color: var(--text); margin-bottom: 20px; line-height: 1.6;
-        }
-        .popup-btn {
-            background: linear-gradient(135deg, var(--accent), #e6b800);
-            color: #1a1a2e;
-            border: none;
-            padding: 12px 40px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .popup-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(242,201,76,0.3); }
-
-        .info-bar {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 14px; flex-wrap: wrap; gap: 8px;
-        }
-        .diff-badge {
-            padding: 4px 14px; border-radius: 30px; font-size: 0.8rem;
-            font-weight: 700; display: inline-flex; align-items: center; gap: 5px;
-        }
-
-        .action-bar {
-            display: flex; justify-content: center; gap: 10px; margin-top: 14px; flex-wrap: wrap;
-        }
-
-        .rule-box {
-            display: none;
-            background: rgba(192,132,252,0.06);
-            border: 1px solid rgba(192,132,252,0.15);
-            border-radius: var(--radius);
-            padding: 14px 18px; margin-top: 12px;
-            font-size: 0.95rem; color: var(--text-dim);
-            line-height: 1.7; text-align: right;
-            animation: fadeIn 0.3s;
-        }
-
-        .level-desc {
-            font-size: 0.85rem; color: var(--text-dim); margin: 4px 0 14px;
+        #countdown {
+            font-size: 2.6rem; font-weight: 700; margin-top: 12px;
+            color: var(--gold);
         }
     </style>
 </head>
@@ -387,21 +340,22 @@
     <header class="app-header">
         <img src="logo.png" alt="شعار نجوم القواعد" class="app-logo">
         <h1 class="app-title">نجوم القواعد</h1>
+        <button class="music-toggle" id="musicToggle" aria-label="تفعيل/إيقاف الموسيقى">🎵</button>
     </header>
 
     <div class="container" id="quizContainer">
-        <button class="music-toggle" id="musicToggle" title="تشغيل/إيقاف الموسيقى">🎵</button>
     </div>
 
     <div class="popup-overlay" id="popupOverlay">
         <div class="popup-card">
             <p id="popupMessage"></p>
-            <button class="popup-btn" id="popupNextBtn">التالي ←</button>
+            <button class="popup-btn" id="popupNextBtn">التالي →</button>
         </div>
     </div>
 
     <script>
         (function() {
+            // ===== حالة اللعبة =====
             let allQuestions = {};
             let currentCategory = null;
             let questions = [];
@@ -410,13 +364,24 @@
             let backgroundGainNode = null;
             let audioCtx = null;
             let currentRule = '';
+            let timerId = null;
+            let timeLeft = 0;
+            let score = 0;
+            let lives = 3;
+            let streak = 0;
+            let maxStreak = 0;
+            let totalCorrect = 0;
+            let totalWrong = 0;
+            let groupResults = [];
+            let currentGroupLabel = '';
+            let groupCorrectCounter = 0;
 
             const container = document.getElementById('quizContainer');
             const popupOverlay = document.getElementById('popupOverlay');
             const popupMessage = document.getElementById('popupMessage');
             const popupNextBtn = document.getElementById('popupNextBtn');
 
-            // ========== الصوت ==========
+            // ===== الصوت =====
             function initAudioContext() {
                 if (!audioCtx) {
                     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -424,48 +389,42 @@
                 }
                 if (audioCtx.state === 'suspended') audioCtx.resume();
             }
-
             function playCorrectSound() {
                 if (!audioCtx) return;
                 const now = audioCtx.currentTime;
                 [523.25, 659.25, 783.99].forEach((freq, i) => {
                     const osc = audioCtx.createOscillator();
                     const gain = audioCtx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.value = freq;
+                    osc.type = 'sine'; osc.frequency.value = freq;
                     gain.gain.setValueAtTime(0.2, now + i * 0.12);
                     gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.12 + 0.3);
                     osc.connect(gain); gain.connect(audioCtx.destination);
                     osc.start(now + i * 0.12); osc.stop(now + i * 0.12 + 0.3);
                 });
             }
-
             function playWrongSound() {
                 if (!audioCtx) return;
                 const now = audioCtx.currentTime;
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
+                const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
                 osc.type = 'triangle'; osc.frequency.value = 180;
                 gain.gain.setValueAtTime(0.15, now);
                 gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
                 osc.connect(gain); gain.connect(audioCtx.destination);
                 osc.start(now); osc.stop(now + 0.4);
             }
-
             function startBackgroundMusic() {
                 if (!audioCtx || backgroundGainNode) return;
                 const notes = [261.63, 329.63, 392.00, 523.25];
                 backgroundGainNode = audioCtx.createGain();
-                backgroundGainNode.gain.value = 0.03;
+                backgroundGainNode.gain.value = 0.025;
                 backgroundGainNode.connect(audioCtx.destination);
                 function playLoop() {
                     if (!musicEnabled || !backgroundGainNode) return;
                     const t = audioCtx.currentTime;
                     notes.forEach((freq, i) => {
-                        const osc = audioCtx.createOscillator();
-                        const noteGain = audioCtx.createGain();
+                        const osc = audioCtx.createOscillator(); const noteGain = audioCtx.createGain();
                         osc.type = 'sine'; osc.frequency.value = freq;
-                        noteGain.gain.setValueAtTime(0.12, t + i * 0.7);
+                        noteGain.gain.setValueAtTime(0.1, t + i * 0.7);
                         noteGain.gain.exponentialRampToValueAtTime(0.001, t + i * 0.7 + 0.6);
                         osc.connect(noteGain); noteGain.connect(backgroundGainNode);
                         osc.start(t + i * 0.7); osc.stop(t + i * 0.7 + 0.6);
@@ -474,71 +433,65 @@
                 }
                 playLoop();
             }
-
-            function stopBackgroundMusic() {
-                if (backgroundGainNode) { backgroundGainNode.disconnect(); backgroundGainNode = null; }
-            }
-
+            function stopBackgroundMusic() { if (backgroundGainNode) { backgroundGainNode.disconnect(); backgroundGainNode = null; } }
             function toggleMusic() {
                 musicEnabled = !musicEnabled;
                 const btn = document.getElementById('musicToggle');
-                if (btn) btn.textContent = musicEnabled ? '🎵' : '🔇';
-                if (musicEnabled) {
-                    initAudioContext();
-                    if (!backgroundGainNode && audioCtx) startBackgroundMusic();
-                } else { stopBackgroundMusic(); }
+                if (btn) {
+                    btn.textContent = musicEnabled ? '🎵' : '🔇';
+                    btn.setAttribute('aria-pressed', musicEnabled ? 'true' : 'false');
+                }
+                if (musicEnabled) { initAudioContext(); if (!backgroundGainNode && audioCtx) startBackgroundMusic(); }
+                else { stopBackgroundMusic(); }
             }
 
-            // ========== تأثيرات النجوم ==========
-            function spawnStars(x, y, count = 12) {
-                const emojis = ['✨', '⭐', '🌟', '💫', '🎉'];
+            function updateMusicToggle() {
+                const btn = document.getElementById('musicToggle');
+                if (btn) btn.textContent = musicEnabled ? '🎵' : '🔇';
+            }
+
+            // ===== تأثير =====
+            function spawnStars(x, y, count = 10) {
+                const emojis = ['✨', '⭐', '🌟', '💫'];
                 for (let i = 0; i < count; i++) {
                     const star = document.createElement('div');
-                    star.className = 'star';
-                    star.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                    star.style.left = x + 'px';
-                    star.style.top = y + 'px';
+                    star.className = 'star'; star.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    star.style.left = x + 'px'; star.style.top = y + 'px';
                     const angle = Math.random() * 2 * Math.PI;
-                    const distance = 50 + Math.random() * 80;
+                    const distance = 40 + Math.random() * 70;
                     star.style.setProperty('--tx', Math.cos(angle) * distance + 'px');
                     star.style.setProperty('--ty', Math.sin(angle) * distance - 30 + 'px');
                     document.body.appendChild(star);
                     star.addEventListener('animationend', () => star.remove());
                 }
             }
-
             function getClickPos(e) {
-                return {
-                    x: e.clientX || e.touches?.[0]?.clientX || window.innerWidth/2,
-                    y: e.clientY || e.touches?.[0]?.clientY || window.innerHeight/2
-                };
+                return { x: e.clientX || e.touches?.[0]?.clientX || window.innerWidth/2, y: e.clientY || e.touches?.[0]?.clientY || window.innerHeight/2 };
             }
 
-            // ========== عرض الواجهات ==========
-            const catIcons = {
-                'الإضافة': '🔗',
-                'الممنوع من الصرف': '🚫',
-                'الأسماء المشتقة': '📝',
-                'النداء': '📣',
-                'النعت': '🏷️'
-            };
+            // ===== أيقونات الفئات =====
+            const catIcons = { 'الإضافة': '🔗', 'الممنوع من الصرف': '🚫', 'الأسماء المشتقة': '📝', 'النداء': '📣', 'النعت': '🏷️' };
+
+            // ===== الخلط =====
+            function shuffle(arr) {
+                for (let i = arr.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                }
+                return arr;
+            }
+
+            // ===== عرض الفئات =====
             function renderCategorySelection() {
+                resetGame();
                 container.innerHTML = '';
-                const musicBtn = document.createElement('button');
-                musicBtn.className = 'music-toggle';
-                musicBtn.id = 'musicToggle';
-                musicBtn.textContent = musicEnabled ? '🎵' : '🔇';
-                musicBtn.addEventListener('click', toggleMusic);
-                container.appendChild(musicBtn);
+                updateMusicToggle();
 
                 const title = document.createElement('div');
-                title.className = 'page-title';
-                title.textContent = 'اختر فئة الأسئلة';
+                title.className = 'page-title'; title.textContent = 'اختر فئة';
                 container.appendChild(title);
-
                 const sub = document.createElement('div');
-                sub.className = 'page-sub';
-                sub.textContent = 'اختر أحد أبواب النحو للتدرب عليها';
+                sub.className = 'page-sub'; sub.textContent = 'اختر باباً نحوياً لبدء التحدي';
                 container.appendChild(sub);
 
                 const grid = document.createElement('div');
@@ -548,32 +501,87 @@
                     btn.className = 'card-btn';
                     const catData = allQuestions[cat];
                     const qs = catData.questions || catData;
-                    btn.innerHTML = `<span class="icon">${catIcons[cat] || '📖'}</span>${cat}<small>${qs.length} أسئلة</small>`;
-                    btn.addEventListener('click', () => startCategory(cat));
+                    btn.innerHTML = `<span class="icon">${catIcons[cat] || '📖'}</span>${cat}<small>${qs.length} سؤال</small>`;
+                    btn.addEventListener('click', () => showRules(cat));
                     grid.appendChild(btn);
                 });
                 container.appendChild(grid);
             }
 
-            function shuffle(arr) {
-                for (let i = arr.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [arr[i], arr[j]] = [arr[j], arr[i]];
-                }
-                return arr;
+            function resetGame() {
+                clearTimer();
+                score = 0; lives = 3; streak = 0; maxStreak = 0;
+                totalCorrect = 0; totalWrong = 0; groupResults = [];
+                currentIndex = 0; questions = []; currentRule = '';
+                // clear any transient state classes on the container
+                if (container) container.classList.remove('wrong-bg', 'correct-bg');
             }
 
-            function startCategory(catName) {
+            // ===== شاشة القوانين =====
+            function showRules(catName) {
                 currentCategory = catName;
                 const catData = allQuestions[catName];
-                let allQs;
-                if (catData.questions) {
-                    allQs = catData.questions;
-                    currentRule = catData.rule || '';
-                } else {
-                    allQs = catData;
-                    currentRule = '';
+                if (catData.questions) { currentRule = catData.rule || ''; }
+                else { currentRule = ''; }
+                resetGame();
+
+                container.innerHTML = '';
+                updateMusicToggle();
+
+                const backRow = document.createElement('div');
+                backRow.className = 'action-row';
+                const backBtn = document.createElement('button');
+                backBtn.className = 'back-btn'; backBtn.textContent = '🔙 الفئات';
+                backBtn.addEventListener('click', renderCategorySelection);
+                backRow.appendChild(backBtn);
+                container.appendChild(backRow);
+
+                const icon = catIcons[catName] || '📖';
+                const title = document.createElement('div');
+                title.className = 'page-title'; title.textContent = `${icon} ${catName}`;
+                container.appendChild(title);
+
+                const rulesDiv = document.createElement('div');
+                rulesDiv.style.cssText = 'text-align:right; margin:12px 0; line-height:2;';
+                const ul = document.createElement('ul');
+                ul.className = 'rules-list';
+                const rules = [
+                    'تبدأ بــ 3 أرواح ❤️، تخسر روحاً عند كل إجابة خاطئة',
+                    'كل إجابة صحيحة = +10 نقاط + نقاط إضافية حسب الضربات المتتالية',
+                    'الضربات المتتالية تمنح نقاط مضاعفة: ×2 بعد 3، ×3 بعد 5',
+                    'الأسئلة مقسمة إلى 3 مستويات: سهل 🟢 → متوسط 🟡 → صعب 🔴',
+                    '✅ بعد كل مجموعة تظهر نتيجة المستوى',
+                    'الهدف: إنهاء جميع المستويات بأعلى نقاط وأقل أخطاء'
+                ];
+                rules.forEach(r => {
+                    const li = document.createElement('li');
+                    li.textContent = r; ul.appendChild(li);
+                });
+                rulesDiv.appendChild(ul);
+                container.appendChild(rulesDiv);
+
+                if (currentRule) {
+                    const ruleBox = document.createElement('div');
+                    ruleBox.className = 'rule-box';
+                    ruleBox.style.display = 'block';
+                    ruleBox.innerHTML = `📜 <strong>القاعدة:</strong><br>${currentRule}`;
+                    container.appendChild(ruleBox);
                 }
+
+                const startBtn = document.createElement('button');
+                startBtn.className = 'start-btn';
+                startBtn.textContent = '🚀 ابدأ التحدي';
+                startBtn.addEventListener('click', () => startGame(catName));
+                container.appendChild(startBtn);
+            }
+
+            // ===== بدء اللعبة =====
+            function startGame(catName) {
+                const catData = allQuestions[catName];
+                let allQs;
+                if (catData.questions) { allQs = catData.questions; currentRule = catData.rule || ''; }
+                else { allQs = catData; currentRule = ''; }
+
                 const levels = [
                     { key: 'سهل', min: 1, max: 3 },
                     { key: 'متوسط', min: 4, max: 6 },
@@ -584,8 +592,7 @@
                     const group = allQs.filter(q => q.difficulty >= min && q.difficulty <= max);
                     if (group.length) {
                         shuffle(group);
-                        const header = { isHeader: true, label: key, count: group.length };
-                        questions.push(header, ...group);
+                        questions.push({ isHeader: true, label: key, count: group.length }, ...group);
                     }
                 });
                 currentIndex = 0;
@@ -597,105 +604,117 @@
                 renderQuestion();
             }
 
+            // ===== عرض السؤال =====
             function renderQuestion() {
+                clearTimer();
                 if (questions.length === 0 || currentIndex >= questions.length) {
                     showCompletion();
                     return;
                 }
+                // clear any transient state classes (in case of recent wrong/correct flash)
+                if (container) container.classList.remove('wrong-bg', 'correct-bg');
                 container.innerHTML = '';
+                updateMusicToggle();
 
-                const musicBtn = document.createElement('button');
-                musicBtn.className = 'music-toggle';
-                musicBtn.id = 'musicToggle';
-                musicBtn.textContent = musicEnabled ? '🎵' : '🔇';
-                musicBtn.addEventListener('click', toggleMusic);
-                container.appendChild(musicBtn);
-
-                // إذا كان العنصر الحالي رأس مجموعة
+                // رأس المجموعة
                 if (questions[currentIndex].isHeader) {
                     const header = questions[currentIndex];
-                    const hColor = header.label === 'سهل' ? '#4ade80' : header.label === 'متوسط' ? '#facc15' : '#fb7185';
-                    const hIcon = header.label === 'سهل' ? '🟢' : header.label === 'متوسط' ? '🟡' : '🔴';
+                    // start tracking this group's results
+                    currentGroupLabel = header.label || '';
+                    groupCorrectCounter = 0;
+                    const colors = { 'سهل': '#4ade80', 'متوسط': '#facc15', 'صعب': '#fb7185' };
+                    const icons = { 'سهل': '🟢', 'متوسط': '🟡', 'صعب': '🔴' };
+                    const hColor = colors[header.label] || '#fff';
+                    const hIcon = icons[header.label] || '';
 
-                    const catLabel = document.createElement('div');
-                    catLabel.className = 'category-label';
-                    catLabel.textContent = `${catIcons[currentCategory] || ''} ${currentCategory}`;
-                    container.appendChild(catLabel);
+                    const gi = document.createElement('div');
+                    gi.className = 'group-intro';
+                    gi.style.borderColor = hColor + '33';
+                    gi.style.background = hColor + '06';
+                    gi.innerHTML = `<div class="gi-icon">${hIcon}</div>
+                        <div class="gi-title" style="color:${hColor};">المستوى ${header.label}</div>
+                        <div class="gi-count">${header.count} أسئلة</div>`;
+                    container.appendChild(gi);
 
-                    const groupBox = document.createElement('div');
-                    groupBox.style.cssText = `text-align:center; padding:40px 20px; border:1px dashed ${hColor}44; border-radius:var(--radius); margin:20px 0; background:${hColor}08;`;
-                    groupBox.innerHTML = `<div style="font-size:3rem; margin-bottom:10px;">${hIcon}</div>
-                        <div style="font-size:1.8rem; font-weight:700; color:${hColor};">المستوى ${header.label}</div>
-                        <div style="font-size:1rem; color:var(--text-dim); margin-top:6px;">${header.count} أسئلة</div>`;
-                    container.appendChild(groupBox);
-
-                    const startBtn = document.createElement('button');
-                    startBtn.className = 'popup-btn';
-                    startBtn.textContent = 'ابدأ';
-                    startBtn.style.cssText = 'background:linear-gradient(135deg, var(--accent), #e6b800); color:#1a1a2e; border:none; padding:14px 50px; font-size:1.2rem; font-weight:700; border-radius:50px; cursor:pointer; transition:0.2s; margin-top:10px;';
-                    startBtn.addEventListener('mouseenter', () => { startBtn.style.transform = 'translateY(-2px)'; startBtn.style.boxShadow = '0 8px 20px rgba(242,201,76,0.3)'; });
-                    startBtn.addEventListener('mouseleave', () => { startBtn.style.transform = ''; startBtn.style.boxShadow = ''; });
-                    startBtn.addEventListener('click', () => {
-                        currentIndex++;
-                        container.dataset.locked = 'false';
-                        renderQuestion();
-                    });
-                    container.appendChild(startBtn);
+                    const cdDiv = document.createElement('div');
+                    cdDiv.id = 'countdown';
+                    cdDiv.style.cssText = 'font-size:3rem; font-weight:700; margin-top:14px; color:var(--gold);';
+                    cdDiv.textContent = '3';
+                    container.appendChild(cdDiv);
 
                     container.dataset.locked = 'true';
+                    let sec = 3;
+                    const interval = setInterval(() => {
+                        sec--;
+                        cdDiv.textContent = sec > 0 ? sec : '🚀';
+                        if (sec <= 0) {
+                            clearInterval(interval);
+                            currentIndex++;
+                            renderQuestion();
+                        }
+                    }, 1000);
                     return;
                 }
 
-                const catLabel = document.createElement('div');
-                catLabel.className = 'category-label';
-                catLabel.textContent = `${catIcons[currentCategory] || ''} ${currentCategory}`;
-                container.appendChild(catLabel);
-
                 const q = questions[currentIndex];
-                const totalQs = questions.filter(q => !q.isHeader).length;
-                const doneQs = questions.slice(0, currentIndex + 1).filter(q => !q.isHeader).length;
 
-                const infoBar = document.createElement('div');
-                infoBar.className = 'info-bar';
+                // ===== شريط اللعب =====
+                const gameBar = document.createElement('div');
+                gameBar.className = 'game-bar';
+                const heartsStr = '❤️'.repeat(Math.max(0, lives)) + '🩶'.repeat(Math.max(0, 3 - lives));
+                const streakStr = streak >= 2 ? ` 🔥${streak}` : '';
+                gameBar.innerHTML = `
+                    <span class="score">🏆 ${score}</span>
+                    <span class="lives">${heartsStr}</span>
+                    <span class="streak">${streakStr}</span>
+                    <span class="timer" id="timerDisplay" style="font-weight:700;font-size:0.9rem;">⏱ 20</span>
+                `;
+                container.appendChild(gameBar);
 
-                const progress = document.createElement('div');
-                progress.className = 'progress';
-                progress.textContent = `السؤال ${doneQs} من ${totalQs}`;
-                infoBar.appendChild(progress);
+                // start question timer
+                startQuestionTimer();
 
-                const diffVal = q.difficulty || 5;
-                const diffColor = diffVal <= 3 ? '#4ade80' : diffVal <= 6 ? '#facc15' : '#fb7185';
-                const diffLabel = diffVal <= 3 ? 'سهل' : diffVal <= 6 ? 'متوسط' : 'صعب';
-                const diffBadge = document.createElement('span');
-                diffBadge.className = 'diff-badge';
-                diffBadge.style.cssText = `background:${diffColor}22; color:${diffColor}; border:1px solid ${diffColor}44; padding:4px 14px; border-radius:30px; font-size:0.8rem; font-weight:700; display:inline-flex; align-items:center; gap:5px;`;
-                diffBadge.innerHTML = `⚡ ${diffVal}/10 · ${diffLabel}`;
-                infoBar.appendChild(diffBadge);
+                // ===== شريط التقدم =====
+                const totalQs = questions.filter(x => !x.isHeader).length;
+                const doneQs = questions.slice(0, currentIndex).filter(x => !x.isHeader).length;
+                const pct = totalQs > 0 ? (doneQs / totalQs * 100) : 0;
 
-                container.appendChild(infoBar);
+                const pw = document.createElement('div');
+                pw.className = 'progress-wrap';
+                const pf = document.createElement('div');
+                pf.className = 'progress-fill';
+                pf.style.width = pct + '%';
+                pw.appendChild(pf);
+                container.appendChild(pw);
 
-                if (q.hint && q.hint.trim() !== '') {
-                    const hintBtn = document.createElement('button');
-                    hintBtn.className = 'hint-btn';
-                    hintBtn.textContent = '💡 تلميح';
-                    hintBtn.addEventListener('click', () => {
-                        const hintText = document.getElementById('hintText');
-                        if (hintText) hintText.style.display = hintText.style.display === 'none' ? 'block' : 'none';
-                    });
-                    container.appendChild(hintBtn);
+                const catTag = document.createElement('div');
+                catTag.className = 'cat-tag';
+                catTag.textContent = `${catIcons[currentCategory]} ${currentCategory} · السؤال ${doneQs + 1} من ${totalQs}`;
+                container.appendChild(catTag);
 
-                    const hintDiv = document.createElement('div');
-                    hintDiv.id = 'hintText';
-                    hintDiv.style.cssText = 'display:none; background:rgba(251,191,36,0.06); border:1px solid rgba(251,191,36,0.15); padding:10px 14px; border-radius:14px; margin-bottom:14px; color:var(--text-dim); text-align:right; font-size:0.95rem;';
-                    hintDiv.textContent = q.hint;
-                    container.appendChild(hintDiv);
-                }
-
+                // ===== السؤال =====
                 const qBox = document.createElement('div');
                 qBox.className = 'question-box';
                 qBox.textContent = q.question;
                 container.appendChild(qBox);
 
+                // ===== التلميح =====
+                if (q.hint && q.hint.trim() !== '') {
+                    const hintBtn = document.createElement('button');
+                    hintBtn.className = 'hint-btn';
+                    hintBtn.textContent = '💡 تلميح';
+                    const hintDiv = document.createElement('div');
+                    hintDiv.className = 'hint-text';
+                    hintDiv.style.cssText = 'display:none; background:rgba(251,191,36,0.05); border:1px solid rgba(251,191,36,0.12); padding:8px 12px; border-radius:12px; margin-bottom:12px; color:var(--dim); text-align:right; font-size:0.9rem;';
+                    hintDiv.textContent = q.hint;
+                    hintBtn.addEventListener('click', () => {
+                        hintDiv.style.display = hintDiv.style.display === 'none' ? 'block' : 'none';
+                    });
+                    container.appendChild(hintBtn);
+                    container.appendChild(hintDiv);
+                }
+
+                // ===== الخيارات =====
                 const optionsDiv = document.createElement('div');
                 optionsDiv.className = 'options';
                 q.options.forEach((opt, idx) => {
@@ -707,83 +726,114 @@
                 });
                 container.appendChild(optionsDiv);
 
-                const actionBar = document.createElement('div');
-                actionBar.className = 'action-bar';
+                // ===== أزرار القاعدة والعودة =====
+                const actionRow = document.createElement('div');
+                actionRow.className = 'action-row';
 
                 const ruleBtn = document.createElement('button');
                 ruleBtn.className = 'back-btn';
-                ruleBtn.style.borderColor = 'rgba(242,201,76,0.3)'; ruleBtn.style.color = 'var(--accent)';
+                ruleBtn.style.cssText = 'border-color:rgba(242,201,76,0.25);color:var(--gold);';
                 ruleBtn.innerHTML = '📖 القاعدة';
                 ruleBtn.addEventListener('click', () => {
-                    const ruleBox = document.getElementById('ruleBox');
-                    if (ruleBox) ruleBox.style.display = ruleBox.style.display === 'none' ? 'block' : 'none';
+                    const rb = document.getElementById('ruleBox');
+                    if (rb) rb.style.display = rb.style.display === 'none' ? 'block' : 'none';
                 });
-                actionBar.appendChild(ruleBtn);
+                actionRow.appendChild(ruleBtn);
 
-                const backBtn = document.createElement('button');
-                backBtn.className = 'back-btn';
-                backBtn.textContent = '🔙 العودة';
-                backBtn.addEventListener('click', () => {
-                    currentCategory = null; questions = []; currentIndex = 0;
-                    renderCategorySelection();
+                const quitBtn = document.createElement('button');
+                quitBtn.className = 'back-btn';
+                quitBtn.textContent = '🔙 خروج';
+                quitBtn.addEventListener('click', () => {
+                    resetGame(); renderCategorySelection();
                 });
-                actionBar.appendChild(backBtn);
+                actionRow.appendChild(quitBtn);
 
-                container.appendChild(actionBar);
+                container.appendChild(actionRow);
 
+                // ===== صندوق القاعدة =====
                 const ruleBox = document.createElement('div');
-                ruleBox.className = 'rule-box';
-                ruleBox.id = 'ruleBox';
-                if (currentRule) {
-                    ruleBox.innerHTML = `📜 <strong>القاعدة:</strong><br>${currentRule}`;
-                } else {
-                    ruleBox.textContent = 'لا توجد قاعدة مسجلة لهذه الفئة.';
-                }
+                ruleBox.className = 'rule-box'; ruleBox.id = 'ruleBox';
+                if (currentRule) { ruleBox.innerHTML = `📜 <strong>القاعدة:</strong><br>${currentRule}`; }
+                else { ruleBox.textContent = 'لا توجد قاعدة مسجلة.'; }
                 container.appendChild(ruleBox);
 
+                // ===== التفسير =====
                 const explLabel = document.createElement('div');
-                explLabel.style.cssText = 'display:none; font-weight:600; color:var(--accent2); margin-top:14px; margin-bottom:4px; text-align:right; font-size:1rem;';
-                explLabel.id = 'explanationLabel';
-                explLabel.textContent = '💡 التفسير';
+                explLabel.style.cssText = 'display:none; font-weight:600; color:var(--purple); margin-top:12px; margin-bottom:2px; text-align:right; font-size:0.95rem;';
+                explLabel.id = 'explanationLabel'; explLabel.textContent = '💡 التفسير';
                 container.appendChild(explLabel);
 
                 const explBox = document.createElement('div');
-                explBox.className = 'explanation-box';
-                explBox.id = 'explanationBox';
+                explBox.className = 'explanation-box'; explBox.id = 'explanationBox';
                 container.appendChild(explBox);
 
                 container.dataset.locked = 'false';
             }
 
-            function disableOptions(disable) {
-                const allBtns = container.querySelectorAll('.option-btn');
-                allBtns.forEach(b => b.disabled = disable);
+            // ===== معالجة الإجابة =====
+            function clearTimer() {
+                if (timerId) { clearInterval(timerId); timerId = null; }
             }
 
-            function showPopup(text, callback) {
-                popupMessage.textContent = text;
-                popupOverlay.classList.add('active');
-                popupNextBtn.onclick = () => {
-                    popupOverlay.classList.remove('active');
-                    if (callback) callback();
-                };
+            function startQuestionTimer() {
+                if (timerId) { clearInterval(timerId); timerId = null; }
+                timeLeft = 20;
+                const td2 = document.getElementById('timerDisplay');
+                if (td2) td2.textContent = `⏱ ${timeLeft}`;
+                timerId = setInterval(() => {
+                    timeLeft--;
+                    const td = document.getElementById('timerDisplay');
+                    if (td) {
+                        td.textContent = `⏱ ${timeLeft}`;
+                        td.style.color = timeLeft <= 5 ? '#fb7185' : timeLeft <= 10 ? '#facc15' : 'var(--text)';
+                        if (timeLeft <= 5) td.style.animation = 'shake 0.2s ease-in-out';
+                        else td.style.animation = '';
+                    }
+                    if (timeLeft <= 0) {
+                        clearInterval(timerId);
+                        timerId = null;
+                        handleTimeout();
+                    }
+                }, 1000);
             }
 
             function handleAnswer(selectedIdx, btnElement, event) {
                 if (container.dataset.locked === 'true') return;
+                clearTimer();
                 container.dataset.locked = 'true';
+
                 const q = questions[currentIndex];
                 const selectedOption = q.options[selectedIdx];
                 const isCorrect = selectedOption.is_correct;
                 const pos = getClickPos(event);
-
                 initAudioContext();
 
                 btnElement.classList.add(isCorrect ? 'correct-flash' : 'wrong-flash');
                 container.classList.add(isCorrect ? 'correct-bg' : 'wrong-bg');
-                if (isCorrect) { playCorrectSound(); spawnStars(pos.x, pos.y, 15); }
-                else { playWrongSound(); }
 
+                if (isCorrect) {
+                    totalCorrect++;
+                    // track per-group correct answers
+                    groupCorrectCounter++;
+                    streak++;
+                    if (streak > maxStreak) maxStreak = streak;
+                    let bonus = 0;
+                    if (streak >= 5) bonus = 20;
+                    else if (streak >= 3) bonus = 10;
+                    const pts = 10 + bonus;
+                    score += pts;
+                    updateGameBar();
+                    playCorrectSound();
+                    spawnStars(pos.x, pos.y, 10);
+                } else {
+                    totalWrong++;
+                    streak = 0;
+                    lives--;
+                    updateGameBar();
+                    playWrongSound();
+                }
+
+                // التفسير
                 const explBox = document.getElementById('explanationBox');
                 const explLabel = document.getElementById('explanationLabel');
                 if (explBox && selectedOption.explanation) {
@@ -798,78 +848,241 @@
                 disableOptions(true);
 
                 if (isCorrect) {
-                    const explText = selectedOption.explanation || 'إجابة صحيحة!';
-                    showPopup(explText, () => {
+                    const msg = selectedOption.explanation || '✅ إجابة صحيحة!';
+                    showPopup(msg, () => {
                         btnElement.classList.remove('correct-flash');
                         container.classList.remove('correct-bg');
-                        if (explBox) explBox.style.display = 'none';
                         currentIndex++;
                         container.dataset.locked = 'false';
+
+                        // تحقق من نهاية مجموعة
+                        if (currentIndex < questions.length && questions[currentIndex].isHeader) {
+                            saveGroupResult();
+                        }
+                        // تحقق من الخسارة
+                        if (lives <= 0) {
+                            showGameOver();
+                            return;
+                        }
                         renderQuestion();
                     });
                 } else {
-                    setTimeout(() => {
+                    // incorrect answer: show feedback, deduct life and advance to next question
+                    if (lives <= 0) {
+                        setTimeout(() => { showGameOver(); }, 600);
+                        return;
+                    }
+                    const msg = selectedOption.explanation || '❌ إجابة خاطئة';
+                    showPopup(msg, () => {
                         btnElement.classList.remove('wrong-flash');
                         container.classList.remove('wrong-bg');
                         container.dataset.locked = 'false';
-                        disableOptions(false);
-                    }, 700);
+
+                        // leave this question in place; disable only the selected (wrong) option
+                        container.querySelectorAll('.option-btn').forEach(b => {
+                            if (b === btnElement) b.disabled = true;
+                            else b.disabled = false;
+                        });
+
+                        // if no lives left, show game over
+                        if (lives <= 0) { showGameOver(); return; }
+
+                        // restart the timer for the same question
+                        startQuestionTimer();
+                    });
                 }
             }
 
-            function showCompletion() {
-                const savedCategory = currentCategory;
-                container.innerHTML = '';
-                const musicBtn = document.createElement('button');
-                musicBtn.className = 'music-toggle';
-                musicBtn.id = 'musicToggle';
-                musicBtn.textContent = musicEnabled ? '🎵' : '🔇';
-                musicBtn.addEventListener('click', toggleMusic);
-                container.appendChild(musicBtn);
+            function handleTimeout() {
+                if (container.dataset.locked === 'true') return;
+                container.dataset.locked = 'true';
+                totalWrong++;
+                streak = 0;
+                lives--;
+                container.classList.add('wrong-bg');
+                const q = questions[currentIndex];
+                if (q) {
+                    const explBox = document.getElementById('explanationBox');
+                    const explLabel = document.getElementById('explanationLabel');
+                    if (explBox) {
+                        explBox.textContent = '⏰ انتهى الوقت!';
+                        explBox.style.display = 'block';
+                        if (explLabel) explLabel.style.display = 'block';
+                    }
+                }
+                disableOptions(true);
+                updateGameBar();
+                playWrongSound();
+                if (lives <= 0) {
+                    setTimeout(() => { showGameOver(); }, 700);
+                    return;
+                }
 
-                const msg = document.createElement('div');
-                msg.className = 'completion-msg';
-                msg.textContent = `🎉 أكملت فئة "${savedCategory}"`;
-                container.appendChild(msg);
+                // Show a popup and then restart the current question timer (like an incorrect answer)
+                showPopup('⏰ انتهى الوقت!', () => {
+                    container.classList.remove('wrong-bg');
+                    container.dataset.locked = 'false';
 
-                const sub = document.createElement('div');
-                sub.className = 'page-sub';
-                sub.textContent = 'جميع المستويات تمت بنجاح';
-                container.appendChild(sub);
+                    // re-enable all options since none was picked
+                    container.querySelectorAll('.option-btn').forEach(b => b.disabled = false);
 
-                const stars = document.createElement('div');
-                stars.className = 'finish-stars';
-                stars.textContent = '🌟🌟🌟🌟🌟';
-                container.appendChild(stars);
+                    // if no lives left, show game over
+                    if (lives <= 0) { showGameOver(); return; }
 
-                const actions = document.createElement('div');
-                actions.style.marginTop = '20px';
-                const backBtn = document.createElement('button');
-                backBtn.className = 'back-btn';
-                backBtn.textContent = '🔙 العودة للفئات';
-                backBtn.addEventListener('click', () => {
-                    currentCategory = null; questions = []; currentIndex = 0;
-                    renderCategorySelection();
+                    // restart the timer for the same question
+                    startQuestionTimer();
                 });
-                actions.appendChild(backBtn);
-                const againBtn = document.createElement('button');
-                againBtn.className = 'back-btn';
-                againBtn.textContent = '🔄 إعادة الفئة';
-                againBtn.addEventListener('click', () => {
-                    currentCategory = null; questions = []; currentIndex = 0;
-                    startCategory(savedCategory);
-                });
-                actions.appendChild(againBtn);
-                container.appendChild(actions);
             }
 
-            // ========== تحميل الأسئلة ==========
+            function saveGroupResult() {
+                // Called when moving into the next group's header. Use tracked counters.
+                if (!currentGroupLabel) return;
+                // avoid duplicate entries
+                if (groupResults.length && groupResults[groupResults.length - 1].label === currentGroupLabel) return;
+                groupResults.push({ label: currentGroupLabel, correct: groupCorrectCounter });
+                // reset tracking until next header sets them
+                currentGroupLabel = '';
+                groupCorrectCounter = 0;
+            }
+
+            function finalizeGroupIfNeeded() {
+                if (currentGroupLabel && (!groupResults.length || groupResults[groupResults.length - 1].label !== currentGroupLabel)) {
+                    groupResults.push({ label: currentGroupLabel, correct: groupCorrectCounter });
+                }
+            }
+
+            function updateGameBar() {
+                const gb = container.querySelector('.game-bar');
+                if (gb) {
+                    const heartsStr = '❤️'.repeat(Math.max(0, lives)) + '🩶'.repeat(Math.max(0, 3 - lives));
+                    const streakStr = streak >= 2 ? ` 🔥${streak}` : '';
+                    const t = document.getElementById('timerDisplay');
+                    const timerStr = t ? t.textContent : '⏱ 20';
+                    gb.innerHTML = `
+                        <span class="score">🏆 ${score}</span>
+                        <span class="lives">${heartsStr}</span>
+                        <span class="streak">${streakStr}</span>
+                        <span class="timer" id="timerDisplay" style="font-weight:700;font-size:0.9rem;">${timerStr}</span>
+                    `;
+                }
+            }
+
+            function disableOptions(disable) {
+                container.querySelectorAll('.option-btn').forEach(b => b.disabled = disable);
+            }
+
+            function showPopup(text, callback) {
+                popupMessage.textContent = text;
+                popupOverlay.classList.add('active');
+                popupNextBtn.onclick = () => {
+                    popupOverlay.classList.remove('active');
+                    if (callback) callback();
+                };
+            }
+
+            function generateGroupResultsHtml() {
+                if (groupResults.length === 0) return '';
+                let html = '<div style="width:100%; text-align:center; margin-top:10px;"><div style="font-size:0.9rem; color:var(--dim); margin-bottom:6px;">نتائج المستويات:</div><div style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap;">';
+                groupResults.forEach(gr => {
+                    html += `<span style="background:rgba(255,255,255,0.05); padding:6px 12px; border-radius:20px; font-size:0.85rem;">${gr.label} ✅ ${gr.correct}</span>`;
+                });
+                html += '</div></div>';
+                return html;
+            }
+
+            function showGameOver() {
+                clearTimer();
+                // remove transient classes before rendering end screen
+                if (container) container.classList.remove('wrong-bg', 'correct-bg');
+                container.innerHTML = '';
+                updateMusicToggle();
+                finalizeGroupIfNeeded();
+
+                const title = document.createElement('div');
+                title.className = 'page-title'; title.textContent = '💔 انتهت اللعبة';
+                container.appendChild(title);
+                const sub = document.createElement('div');
+                sub.className = 'page-sub'; sub.textContent = 'نفدت أرواحك';
+                container.appendChild(sub);
+
+                const rb = document.createElement('div');
+                rb.className = 'result-bar';
+                rb.innerHTML = `
+                    <div class="result-item"><div class="ri-label">النقاط</div><div class="ri-value" style="color:var(--gold);">${score}</div></div>
+                    <div class="result-item"><div class="ri-label">✅ صحيح</div><div class="ri-value" style="color:var(--correct);">${totalCorrect}</div></div>
+                    <div class="result-item"><div class="ri-label">❌ خطأ</div><div class="ri-value" style="color:var(--wrong);">${totalWrong}</div></div>
+                    <div class="result-item"><div class="ri-label">🔥 أطول ضربة</div><div class="ri-value" style="color:var(--gold);">${maxStreak}</div></div>
+                `;
+                container.appendChild(rb);
+
+                const ar = document.createElement('div');
+                ar.className = 'action-row';
+                const retry = document.createElement('button');
+                retry.className = 'start-btn';
+                retry.textContent = '🔄 حاول مرة أخرى';
+                retry.addEventListener('click', () => { resetGame(); showRules(currentCategory); });
+                ar.appendChild(retry);
+                const back = document.createElement('button');
+                back.className = 'back-btn';
+                back.textContent = '🔙 الفئات';
+                back.addEventListener('click', () => { resetGame(); renderCategorySelection(); });
+                ar.appendChild(back);
+                container.appendChild(ar);
+            }
+
+            // ===== الإكمال =====
+            function showCompletion() {
+                clearTimer();
+                // remove transient classes before rendering completion screen
+                if (container) container.classList.remove('wrong-bg', 'correct-bg');
+                container.innerHTML = '';
+                updateMusicToggle();
+                finalizeGroupIfNeeded();
+
+                const accuracy = totalCorrect + totalWrong > 0 ? Math.round(totalCorrect / (totalCorrect + totalWrong) * 100) : 0;
+                const stars = accuracy >= 90 ? '⭐⭐⭐' : accuracy >= 70 ? '⭐⭐' : '⭐';
+
+                const title = document.createElement('div');
+                title.className = 'page-title';
+                title.textContent = `🎉 أكملت "${currentCategory}"`;
+                container.appendChild(title);
+                const sub = document.createElement('div');
+                sub.className = 'page-sub';
+                sub.textContent = `${stars}  •  دقة ${accuracy}%`;
+                container.appendChild(sub);
+
+                const rb = document.createElement('div');
+                rb.className = 'result-bar';
+                rb.innerHTML = `
+                    <div class="result-item"><div class="ri-label">النقاط</div><div class="ri-value" style="color:var(--gold);">${score}</div></div>
+                    <div class="result-item"><div class="ri-label">✅ صحيح</div><div class="ri-value" style="color:var(--correct);">${totalCorrect}</div></div>
+                    <div class="result-item"><div class="ri-label">❌ خطأ</div><div class="ri-value" style="color:var(--wrong);">${totalWrong}</div></div>
+                    <div class="result-item"><div class="ri-label">🔥 أطول ضربة</div><div class="ri-value" style="color:var(--gold);">${maxStreak}</div></div>
+                `;
+                container.appendChild(rb);
+
+                const ar = document.createElement('div');
+                ar.className = 'action-row';
+                const again = document.createElement('button');
+                again.className = 'start-btn';
+                again.textContent = '🔄 إعادة الفئة';
+                again.addEventListener('click', () => { resetGame(); startGame(currentCategory); });
+                ar.appendChild(again);
+                const back = document.createElement('button');
+                back.className = 'back-btn';
+                back.textContent = '🔙 الفئات';
+                back.addEventListener('click', () => { resetGame(); renderCategorySelection(); });
+                ar.appendChild(back);
+                container.appendChild(ar);
+            }
+
+            // ===== تحميل الأسئلة =====
             async function loadQuestions() {
                 try {
                     const res = await fetch('./questions.json');
                     if (!res.ok) throw new Error('تعذر تحميل الملف');
                     const data = await res.json();
-                    if (typeof data !== 'object' || Array.isArray(data)) throw new Error('يجب أن يكون الملف كائناً بمفاتيح الفئات');
+                    if (!data || typeof data !== 'object' || Array.isArray(data)) throw new Error('يجب أن يكون الملف كائناً');
                     for (const [cat, val] of Object.entries(data)) {
                         let arr;
                         if (val.questions) { arr = val.questions; }
@@ -879,7 +1092,7 @@
                         arr.forEach((q, i) => {
                             if (!q.question || !Array.isArray(q.options) || q.options.length < 2) throw new Error(`السؤال ${i+1} في ${cat} غير مكتمل`);
                             q.options.forEach((opt, j) => {
-                                if (!opt.text || typeof opt.is_correct !== 'boolean') throw new Error(`الخيار ${j+1} في السؤال ${i+1} (${cat}) ينقصه حقل نصي أو is_correct`);
+                                if (!opt.text || typeof opt.is_correct !== 'boolean') throw new Error(`الخيار ${j+1} في السؤال ${i+1} (${cat}) ينقصه حقل`);
                             });
                         });
                     }
@@ -893,9 +1106,15 @@
 
             document.body.addEventListener('click', initAudioContext, { once: true });
             document.body.addEventListener('touchstart', initAudioContext, { once: true });
-
             loadQuestions();
             window.toggleMusic = toggleMusic;
+            // Attach header music toggle (persistent) and sync state
+            const headerMusicBtn = document.getElementById('musicToggle');
+            if (headerMusicBtn) {
+                headerMusicBtn.addEventListener('click', toggleMusic);
+                headerMusicBtn.textContent = musicEnabled ? '🎵' : '🔇';
+                headerMusicBtn.setAttribute('aria-pressed', musicEnabled ? 'true' : 'false');
+            }
         })();
     </script>
 </body>
